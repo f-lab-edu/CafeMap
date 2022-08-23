@@ -4,7 +4,7 @@
 ## 사용 기술 및 개발 환경
 
 - Java 17
-- Spring Boot 2.7.2
+- Spring Boot 2.7.3
 - gradle
 - MyBatis
 - MySQL
