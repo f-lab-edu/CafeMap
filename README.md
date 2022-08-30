@@ -8,3 +8,7 @@
 - Gradle
 - MyBatis
 - MySQL
+
+## ERD
+
+https://dbdiagram.io/d/6289f426f040f104c171c245
