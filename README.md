@@ -8,6 +8,7 @@
 - Gradle
 - MyBatis
 - MySQL
+- GitHub Actions
 
 ## ERD
 
