@@ -13,3 +13,5 @@
 ## ERD
 
 https://dbdiagram.io/d/6289f426f040f104c171c245
+
+![img](https://github.com/dilmah0203/TIL/blob/main/Image/ER%20Diagram.png)
