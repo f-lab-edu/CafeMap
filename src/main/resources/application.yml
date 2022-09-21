@@ -1,11 +1,3 @@
-# h2 DB에서 mysql로 변경
-#spring:
-#  datasource:
-#    url: jdbc:h2:tcp://localhost/~/devdb
-#    username: sa
-#    password:
-#    driver-class-name: org.h2.Driver
-
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
