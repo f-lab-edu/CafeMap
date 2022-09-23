@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flab.CafeMap.domain.user.dao.UserMapper">
+
+  <insert id="insertUser">
+    INSERT INTO user(login_id,
+                     name,
+                     password,
+                     phone_number,
+                     created_at
+                     )
+    VALUES (#{loginId},
+            #{name},
+            #{password},
+            #{phoneNumber},
+            #{createdAt})
+  </insert>
+
+  <update id="updateUser">
+    UPDATE user
+    SET name = IFNULL(#{name},name),
+        phone_number = IFNULL(#{phoneNumber}, phone_number),
+        modified_at = #{modifiedAt}
+    WHERE id = #{id}
+  </update>
+
+  <select id="findById">
+
+  </select>
+
+
+
+</mapper>
