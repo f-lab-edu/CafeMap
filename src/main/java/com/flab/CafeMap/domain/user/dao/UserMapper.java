@@ -7,8 +7,10 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper {
 
-    void insertUser(User user);
+    int insertUser(User user);
 
     int updateUser(User user);
-    Optional<User> findById(Long id);
+
+    Optional<User> selectUserById(Long id);
+    Optional<User> selectUserByLoginId(String loginId);
 }
