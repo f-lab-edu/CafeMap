@@ -26,7 +26,7 @@
     WHERE id = #{id}
   </update>
 
-  <select id="selectUserById" resultType="com.flab.CafeMap.user.User">
+  <select id="selectUserById" resultType="com.flab.CafeMap.domain.user.User">
     SELECT id,
            login_id,
            name,

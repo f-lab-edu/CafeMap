@@ -6,13 +6,14 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class UserSaveResponse {
+public class UserGetResponse {
 
     private String loginId;
     private String name;
     private String phoneNumber;
 
-    public static UserSaveResponse from(User user) {
-        return new UserSaveResponse(user.getLoginId(), user.getName(), user.getPhoneNumber());
+    public static UserGetResponse from(User user) {
+        return new UserGetResponse(user.getLoginId(), user.getName(), user.getPhoneNumber());
     }
+
 }

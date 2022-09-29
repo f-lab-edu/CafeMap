@@ -2,6 +2,7 @@ package com.flab.CafeMap.web.user;
 
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.service.UserService;
+import com.flab.CafeMap.web.user.dto.UserGetResponse;
 import com.flab.CafeMap.web.user.dto.UserSaveRequest;
 import com.flab.CafeMap.web.user.dto.UserSaveResponse;
 import lombok.RequiredArgsConstructor;
@@ -29,14 +30,15 @@ public class UserController {
     public ResponseEntity<UserSaveResponse> addUser(
         @Validated @RequestBody UserSaveRequest userSaveRequest) {
         User newUser = userService.addUser(userSaveRequest);
-        return ResponseEntity<>(UserSaveResponse, HttpStatus.CREATED);
+        UserSaveResponse response = UserSaveResponse.from(newUser);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{loginId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<UserGetResponse> getUser(@PathVariable String loginId) {
         User user = userService.findUser(loginId);
-        return new ResponseEntity.status(HttpStatus.OK);
+        UserGetResponse response = UserGetResponse.from(user);
+        return ResponseEntity.ok(response);
     }
-
 
 }
