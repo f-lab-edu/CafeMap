@@ -9,13 +9,14 @@
                      name,
                      password,
                      phone_number,
-                     created_at
-                     )
+                     created_at,
+                     created_by)
     VALUES (#{loginId},
             #{name},
             #{password},
             #{phoneNumber},
-            #{createdAt})
+            #{createdAt},
+            #{createdBy})
   </insert>
 
   <update id="updateUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.CafeMap.domain.user.User">
