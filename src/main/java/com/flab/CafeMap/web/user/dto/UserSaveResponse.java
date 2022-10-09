@@ -1,11 +1,11 @@
 package com.flab.CafeMap.web.user.dto;
 
 import com.flab.CafeMap.domain.user.User;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
+@Builder
 public class UserSaveResponse {
 
     private String loginId;
@@ -13,6 +13,10 @@ public class UserSaveResponse {
     private String phoneNumber;
 
     public static UserSaveResponse from(User user) {
-        return new UserSaveResponse(user.getLoginId(), user.getName(), user.getPhoneNumber());
+        return UserSaveResponse.builder()
+            .loginId(user.getLoginId())
+            .name(user.getName())
+            .phoneNumber(user.getPhoneNumber())
+            .build();
     }
 }

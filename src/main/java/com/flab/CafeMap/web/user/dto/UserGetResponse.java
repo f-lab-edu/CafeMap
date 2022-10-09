@@ -2,18 +2,19 @@ package com.flab.CafeMap.web.user.dto;
 
 import com.flab.CafeMap.domain.user.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 @AllArgsConstructor
 public class UserGetResponse {
 
-    private String loginId;
-    private String name;
-    private String phoneNumber;
+    private User user;
 
     public static UserGetResponse from(User user) {
-        return new UserGetResponse(user.getLoginId(), user.getName(), user.getPhoneNumber());
+        return UserGetResponse.builder()
+            .user(user)
+            .build();
     }
-
 }

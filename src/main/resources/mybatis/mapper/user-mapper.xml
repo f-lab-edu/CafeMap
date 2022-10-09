@@ -15,7 +15,7 @@
             #{name},
             #{password},
             #{phoneNumber},
-            #{createdAt},
+            NOW(),
             #{createdBy})
   </insert>
 

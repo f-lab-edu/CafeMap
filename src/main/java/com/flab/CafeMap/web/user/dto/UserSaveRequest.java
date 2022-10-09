@@ -3,11 +3,11 @@ package com.flab.CafeMap.web.user.dto;
 import com.flab.CafeMap.domain.user.User;
 import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
 public class UserSaveRequest {
 
@@ -18,7 +18,7 @@ public class UserSaveRequest {
     private String name;
 
     @NotBlank
-    private String passsword;
+    private String password;
 
     @NotBlank
     private String phoneNumber;
@@ -27,8 +27,9 @@ public class UserSaveRequest {
         return User.builder()
             .loginId(this.loginId)
             .name(this.name)
-            .password(this.passsword)
+            .password(this.password)
             .phoneNumber(this.phoneNumber)
+            .createdBy(this.getName())
             .build();
     }
 }
