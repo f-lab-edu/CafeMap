@@ -63,8 +63,7 @@ class UserControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
 
             //then
-            .andDo(print()).andExpect(status().isBadRequest())
-            .andExpect(jsonPath("$.code").value("FieldNotFoundException"));
+            .andDo(print()).andExpect(status().isBadRequest());
     }
 
     private UserSaveRequest createUser() {
