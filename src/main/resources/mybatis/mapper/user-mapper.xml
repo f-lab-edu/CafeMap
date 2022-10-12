@@ -19,24 +19,6 @@
             #{createdBy})
   </insert>
 
-  <update id="updateUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.CafeMap.domain.user.User">
-    UPDATE user
-    SET name = IFNULL(#{name},name),
-        phone_number = IFNULL(#{phoneNumber}, phone_number),
-        modified_at = #{modifiedAt}
-    WHERE id = #{id}
-  </update>
-
-  <select id="selectUserById" resultType="com.flab.CafeMap.domain.user.User">
-    SELECT id,
-           login_id,
-           name,
-           password,
-           phone_number
-    FROM user
-    WHERE id = #{id}
-  </select>
-
   <select id = "selectUserByLoginId" resultType="com.flab.CafeMap.domain.user.User">
     SELECT *
     FROM user

@@ -31,7 +31,7 @@ public class UserSaveRequest {
             .name(this.name)
             .password(this.password)
             .phoneNumber(this.phoneNumber)
-            .createdBy(this.getName())
+            .createdBy(this.name)
             .build();
     }
 }
