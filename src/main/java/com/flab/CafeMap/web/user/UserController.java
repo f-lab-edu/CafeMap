@@ -17,11 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
-
 public class UserController {
 
     private final UserService userService;
@@ -40,5 +38,4 @@ public class UserController {
         UserGetResponse response = UserGetResponse.from(user);
         return ResponseEntity.ok(response);
     }
-
 }

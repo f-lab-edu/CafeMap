@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @SpringBootTest
-public class UserMapperTest {
+class UserMapperTest {
 
     @Autowired
     private UserMapper userMapper;
@@ -20,10 +20,10 @@ public class UserMapperTest {
     @Test
     @DisplayName("User insert 쿼리 테스트")
     void insertUser() {
-
         //given
         User user1 = createUser("id", "testName", "testPassword", "01012345678", "testCreatedBy");
-        User user2 = createUser("id2", "testName2", "testPassword2", "01012345679", "testCreatedBy2");
+        User user2 = createUser("id2", "testName2", "testPassword2", "01012345679",
+            "testCreatedBy2");
 
         //when
         int count = 0;

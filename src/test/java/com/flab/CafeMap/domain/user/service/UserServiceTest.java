@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @SpringBootTest
-public class UserServiceTest {
+class UserServiceTest {
 
     @Autowired
     UserService userService;
@@ -21,7 +21,6 @@ public class UserServiceTest {
     @Test
     @DisplayName("회원가입 테스트")
     void addUser() {
-
         //given
         userService.addUser(UserSaveRequest.builder()
             .loginId("testId")
