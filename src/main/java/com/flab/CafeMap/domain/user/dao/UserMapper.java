@@ -9,5 +9,5 @@ public interface UserMapper {
 
     int insertUser(User user);
 
-제    Optional<User> selectUserByLoginId(String loginId);
+    Optional<User> selectUserByLoginId(String loginId);
 }

@@ -3,7 +3,6 @@ package com.flab.CafeMap.domain.user.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.flab.CafeMap.domain.user.User;
-import com.flab.CafeMap.web.user.dto.UserGetResponse;
 import com.flab.CafeMap.web.user.dto.UserSaveRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
