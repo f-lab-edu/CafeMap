@@ -20,7 +20,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Profile("test")
 class UserControllerTest {
 
     @Mock
