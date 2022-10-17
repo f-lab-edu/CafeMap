@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS USER;
+
 CREATE TABLE `user`
 (
     id           int         NOT NULL AUTO_INCREMENT,
