@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flab.CafeMap.domain.user.dao.UserMapper">
+
+  <insert id="insertUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.CafeMap.domain.user.User">
+    INSERT INTO user(login_id,
+                     name,
+                     password,
+                     phone_number,
+                     created_at,
+                     created_by)
+    VALUES (#{loginId},
+            #{name},
+            #{password},
+            #{phoneNumber},
+            NOW(),
+            #{createdBy})
+  </insert>
+
+  <select id = "selectUserByLoginId" resultType="com.flab.CafeMap.domain.user.User">
+    SELECT *
+    FROM user
+    WHERE login_id = #{loginId}
+  </select>
+</mapper>
