@@ -15,11 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class UserService {
 
     private final UserMapper userMapper;
 
+    @Transactional
     public User addUser(UserSaveRequest userSaveRequest) {
         User user = userSaveRequest.toEntity();
         userMapper.insertUser(user);

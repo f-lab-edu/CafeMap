@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @RestController : @Controller + @ResponseBody
+ * @RequiredArgsConstructor : final 필드에 대해 생성자 생성
+ */
+
 @RestController
 @RequiredArgsConstructor
 public class LoginController {
