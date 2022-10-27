@@ -34,7 +34,7 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> login(@NotNull HttpSession session) {
+    public ResponseEntity<Void> logout(@NotNull HttpSession session) {
         loginService.logout(session);
         return new ResponseEntity<>(HttpStatus.OK);
     }

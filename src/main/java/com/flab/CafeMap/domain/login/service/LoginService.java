@@ -30,6 +30,7 @@ public class LoginService {
         User user = userMapper.selectUserByLoginId(loginRequest.getLoginId())
             .orElseThrow(() -> new LoginIdNotFoundException());
 
+        session.setAttribute(LOGIN_SESSION, user.getLoginId());
         return user;
     }
 
