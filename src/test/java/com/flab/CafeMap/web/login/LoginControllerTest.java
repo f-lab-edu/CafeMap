@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flab.CafeMap.domain.login.service.LoginService;
+import com.flab.CafeMap.domain.user.dao.UserMapper;
 import com.flab.CafeMap.domain.user.service.UserService;
 import com.flab.CafeMap.web.login.dto.LoginRequest;
 import com.flab.CafeMap.web.user.dto.UserSaveRequest;
@@ -18,14 +19,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 
 @WebMvcTest(LoginController.class)
 @ActiveProfiles("test")
 class LoginControllerTest {
-
-    @MockBean
-    UserService userService;
 
     @MockBean
     LoginService loginService;
@@ -38,29 +37,22 @@ class LoginControllerTest {
     @Test
     @DisplayName("로그인 성공 시 201 상태코드 반환")
     void login() throws Exception {
-        UserSaveRequest userSaveRequest = createUser();
-        userService.addUser(userSaveRequest);
+        //given
+        LoginRequest loginRequest = createLoginRequest();
 
-        LoginRequest loginRequest = new LoginRequest(userSaveRequest.getLoginId(),
-            "testPassword");
         //when
         mockMvc.perform(post("/login")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(loginRequest))
-                .accept(MediaType.APPLICATION_JSON))
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(loginRequest))
+            .accept(MediaType.APPLICATION_JSON))
             //then
-            .andDo(print()).andExpect(status().isCreated())
-            .andExpect(jsonPath("$.loginId").value(userSaveRequest.getLoginId()))
-            .andExpect(jsonPath("$.name").value(userSaveRequest.getPassword()));
+            .andDo(print()).andExpect(status().isCreated());
     }
 
-
-    private UserSaveRequest createUser() {
-        return UserSaveRequest.builder()
-            .loginId("userControllerTestId")
-            .name("testName")
+    private LoginRequest createLoginRequest() {
+        return LoginRequest.builder()
+            .loginId("testLoginId")
             .password("testPassword")
-            .phoneNumber("01012345678")
             .build();
     }
 }

@@ -1,7 +1,6 @@
 package com.flab.CafeMap.web.login.dto;
 
 import com.flab.CafeMap.domain.user.User;
-import com.flab.CafeMap.web.user.dto.UserSaveResponse;
 import lombok.Builder;
 import lombok.Getter;
 
