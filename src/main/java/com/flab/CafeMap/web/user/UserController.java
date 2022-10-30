@@ -3,6 +3,8 @@ package com.flab.CafeMap.web.user;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.service.UserService;
 import com.flab.CafeMap.web.user.dto.UserGetResponse;
+import com.flab.CafeMap.web.user.dto.UserPatchRequest;
+import com.flab.CafeMap.web.user.dto.UserPatchResponse;
 import com.flab.CafeMap.web.user.dto.UserSaveRequest;
 import com.flab.CafeMap.web.user.dto.UserSaveResponse;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,5 +45,12 @@ public class UserController {
         User user = userService.findUser(loginId);
         UserGetResponse response = UserGetResponse.from(user);
         return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping
+    public ResponseEntity<UserPatchResponse> modifyUser(
+        @RequestBody UserPatchRequest userPatchRequest) {
+        User user = userService.modifyUser(userPatchRequest);
+        return new ResponseEntity<>(UserPatchResponse.from(user), HttpStatus.OK);
     }
 }

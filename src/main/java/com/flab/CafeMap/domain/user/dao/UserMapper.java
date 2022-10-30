@@ -13,4 +13,6 @@ public interface UserMapper {
     int insertUser(User user);
 
     Optional<User> selectUserByLoginId(String loginId);
+
+    int updateUser(User user);
 }

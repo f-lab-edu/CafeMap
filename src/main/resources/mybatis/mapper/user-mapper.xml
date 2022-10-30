@@ -4,7 +4,8 @@
 
 <mapper namespace="com.flab.CafeMap.domain.user.dao.UserMapper">
 
-  <insert id="insertUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.CafeMap.domain.user.User">
+  <insert id="insertUser" useGeneratedKeys="true" keyProperty="id"
+    parameterType="com.flab.CafeMap.domain.user.User">
     INSERT INTO user(login_id,
                      name,
                      password,
@@ -19,9 +20,18 @@
             #{createdBy})
   </insert>
 
-  <select id = "selectUserByLoginId" resultType="com.flab.CafeMap.domain.user.User">
+  <select id="selectUserByLoginId" resultType="com.flab.CafeMap.domain.user.User">
     SELECT *
     FROM user
     WHERE login_id = #{loginId}
   </select>
+
+  <insert id="updateUser" useGeneratedKeys="true" keyProperty="id"
+    parameterType="com.flab.CafeMap.domain.user.User">
+    UPDATE user
+    SET name         = IFNULL(#{name}, name),
+        phone_number = IFNULL(#{phoneNumber}, phone_number),
+        modified_at  = #{modifiedAt}
+    WHERE id = #{id}
+  </insert>
 </mapper>
