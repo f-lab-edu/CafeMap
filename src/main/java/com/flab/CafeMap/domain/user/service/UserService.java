@@ -35,8 +35,13 @@ public class UserService {
     }
 
     public User modifyUser(UserPatchRequest userPatchRequest) {
-        User user = findUser(userPatchRequest.getLoginId());
-        user.modify(userPatchRequest.getName(), userPatchRequest.getPhoneNumber(), userPatchRequest.getModifiedBy());
+        User user = User.builder()
+            .loginId(userPatchRequest.getLoginId())
+            .name(userPatchRequest.getName())
+            .phoneNumber(userPatchRequest.getPhoneNumber())
+            .modifiedBy(userPatchRequest.getModifiedBy())
+            .build();
+
         userMapper.updateUser(user);
         return user;
     }
