@@ -58,7 +58,7 @@ class UserMapperTest {
 
     @Test
     @DisplayName("id로 User 정상 반환 확인 테스트")
-    void selectUserById(){
+    void selectUserById() {
         //given
         User user1 = createUser("id", "testName", "testPassword", "01012345678", "testCreatedBy");
         User user2 = createUser("id2", "testName2", "testPassword2", "01012345679",
