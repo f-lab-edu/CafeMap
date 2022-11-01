@@ -1,12 +1,16 @@
 package com.flab.CafeMap.web.user;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.service.UserService;
+import com.flab.CafeMap.web.user.dto.UserPatchRequest;
 import com.flab.CafeMap.web.user.dto.UserSaveRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -73,6 +77,45 @@ class UserControllerTest {
 
             //then
             .andDo(print()).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("회원 아이디로 회원 정보 조회 테스트")
+    void getUser() throws Exception {
+        //given
+        UserSaveRequest userSaveRequest = createUser();
+        User user = userService.addUser(userSaveRequest);
+
+        //when
+
+    }
+
+    @Test
+    @DisplayName("회원 정보 수정 테스트")
+    void modifyUser() throws Exception {
+        //given
+        UserSaveRequest userSaveRequest = createUser();
+
+        mockMvc.perform(post("/users")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(userSaveRequest))
+            .accept(MediaType.APPLICATION_JSON));
+
+        //when
+        UserPatchRequest userPatchRequest = UserPatchRequest.builder()
+            .loginId(userSaveRequest.getLoginId())
+            .name("testName2")
+            .phoneNumber("01012345679")
+            .build();
+
+        mockMvc.perform(patch("/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(userPatchRequest))
+                .accept(MediaType.APPLICATION_JSON))
+            //then
+            .andDo(print()).andExpect(jsonPath("$.loginId").value(userSaveRequest.getLoginId()))
+            .andExpect(jsonPath("$.name").value(userPatchRequest.getName()))
+            .andExpect(jsonPath("$.phoneNumber").value(userPatchRequest.getPhoneNumber()));
     }
 
     private UserSaveRequest createUser() {
