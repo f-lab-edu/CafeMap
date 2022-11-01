@@ -1,9 +1,8 @@
 package com.flab.CafeMap.domain.user.service;
 
-import com.flab.CafeMap.domain.login.exception.LoginIdNotFoundException;
+import com.flab.CafeMap.domain.login.exception.UserNotFoundException;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.dao.UserMapper;
-import com.flab.CafeMap.web.user.dto.UserGetResponse;
 import com.flab.CafeMap.web.user.dto.UserPatchRequest;
 import com.flab.CafeMap.web.user.dto.UserSaveRequest;
 import lombok.RequiredArgsConstructor;
@@ -30,18 +29,14 @@ public class UserService {
     @Transactional(readOnly = true)
     public User findUser(String loginId) {
         return userMapper.selectUserByLoginId(loginId).orElseThrow(() -> {
-            throw new LoginIdNotFoundException();
+            throw new UserNotFoundException();
         });
     }
 
     public User modifyUser(UserPatchRequest userPatchRequest) {
-        User user = User.builder()
-            .loginId(userPatchRequest.getLoginId())
-            .name(userPatchRequest.getName())
-            .phoneNumber(userPatchRequest.getPhoneNumber())
-            .modifiedBy(userPatchRequest.getModifiedBy())
-            .build();
-
+        User user = findUser(userPatchRequest.getLoginId());
+        user.modify(userPatchRequest.getName(), userPatchRequest.getPhoneNumber(),
+            userPatchRequest.getModifiedBy());
         userMapper.updateUser(user);
         return user;
     }

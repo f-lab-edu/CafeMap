@@ -2,8 +2,10 @@ package com.flab.CafeMap.domain.user.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.flab.CafeMap.domain.login.exception.UserNotFoundException;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.web.user.dto.UserSaveRequest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,32 @@ class UserServiceTest {
 
         //then
         assertThat(findUser.getLoginId()).isEqualTo("testId");
+        assertThat(findUser.getName()).isEqualTo("testName");
+    }
+
+    @Test
+    @DisplayName("loginId로 회원 정보 조회")
+    void findUser() {
+        //given
+        userService.addUser(UserSaveRequest.builder()
+            .loginId("testId")
+            .password("testPassword")
+            .name("testName")
+            .phoneNumber("01012345678")
+            .build());
+
+        //when
+        User findUser = userService.findUser("testId");
+
+        //then
+        assertThat(findUser.getLoginId()).isEqualTo("testId");
+    }
+
+    @Test
+    @DisplayName("loginId로 회원 정보 조회 실패 시 예외 호출 테스트")
+    void findUserFailed() {
+        //given, when, then
+        Assertions.assertThrows(UserNotFoundException.class, () -> userService.findUser("testId"));
     }
 
 }
