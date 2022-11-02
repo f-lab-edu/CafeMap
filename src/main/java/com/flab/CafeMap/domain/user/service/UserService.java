@@ -7,6 +7,7 @@ import com.flab.CafeMap.web.user.dto.UserSaveRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PatchMapping;
 
 /**
  * @RequiredArgsConstructor : final 필드에 대해 생성자 생성
@@ -31,5 +32,4 @@ public class UserService {
             throw new UserNotFoundException();
         });
     }
-
 }
