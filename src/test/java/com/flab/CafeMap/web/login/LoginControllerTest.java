@@ -19,6 +19,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+/**
+ * @WebMvcTest : 컨트롤러 테스트 시에 테스트에 필요한 빈을 지정하는 애노테이션
+ * @ActiveProfiles : 스프링 컨테이터 실행 시 실행 환경을 지정해주는 애노테이션으로, 테스트 시 특정 빈을 로드
+ */
 
 @WebMvcTest(LoginController.class)
 @ActiveProfiles("test")
@@ -65,7 +69,6 @@ class LoginControllerTest {
             //then
             .andDo(print()).andExpect(status().isOk());
     }
-
 
     private LoginRequest createLoginRequest() {
         return LoginRequest.builder()
