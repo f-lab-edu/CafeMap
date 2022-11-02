@@ -1,7 +1,7 @@
 package com.flab.CafeMap.domain.login.service;
 
 import com.flab.CafeMap.domain.login.exception.DuplicatedLoginSessionException;
-import com.flab.CafeMap.domain.login.exception.LoginIdNotFoundException;
+import com.flab.CafeMap.domain.login.exception.UserNotFoundException;
 import com.flab.CafeMap.domain.login.exception.LoginSessionNotFoundException;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.dao.UserMapper;
@@ -28,7 +28,7 @@ public class LoginService {
         }
 
         User user = userMapper.selectUserByLoginId(loginRequest.getLoginId())
-            .orElseThrow(() -> new LoginIdNotFoundException());
+            .orElseThrow(() -> new UserNotFoundException());
 
         session.setAttribute(LOGIN_SESSION, user.getLoginId());
         return user;
