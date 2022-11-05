@@ -27,8 +27,8 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User findUser(String loginId) {
-        return userMapper.selectUserByLoginId(loginId).orElseThrow(() -> {
+    public User findUser(Long userId) {
+        return userMapper.selectUserById(userId).orElseThrow(() -> {
             throw new UserNotFoundException();
         });
     }

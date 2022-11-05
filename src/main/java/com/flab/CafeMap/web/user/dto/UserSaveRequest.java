@@ -14,6 +14,9 @@ import lombok.NoArgsConstructor;
 public class UserSaveRequest {
 
     @NotBlank
+    private Long Id;
+
+    @NotBlank
     private String loginId;
 
     @NotBlank
@@ -27,6 +30,7 @@ public class UserSaveRequest {
 
     public User toEntity() {
         return User.builder()
+            .id(this.Id)
             .loginId(this.loginId)
             .name(this.name)
             .password(this.password)

@@ -109,7 +109,7 @@ class LoginServiceTest {
     }
 
     @Test
-    @DisplayName("로그아웃 시 세션정보를 찾을 수 없을 때 예외 호출 확인")
+    @DisplayName("로그아웃 시 세션정보를 찾을 수 없을 때 예외 호출 확성")
     void loginSessionNotFoundExceptionTest() {
         //given
         MockHttpSession mockHttpSession = new MockHttpSession();

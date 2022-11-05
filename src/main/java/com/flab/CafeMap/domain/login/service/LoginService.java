@@ -7,7 +7,6 @@ import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.dao.UserMapper;
 import com.flab.CafeMap.web.login.dto.LoginRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,7 @@ public class LoginService {
     private final UserMapper userMapper;
     public static final String LOGIN_SESSION = "loginId";
 
-    public User login(LoginRequest loginRequest, @NotNull HttpSession session) {
+    public User login(LoginRequest loginRequest, HttpSession session) {
         if (loginRequest.getLoginId().equals(session.getAttribute(LOGIN_SESSION))) {
             throw new DuplicatedLoginSessionException();
         }
@@ -34,7 +33,7 @@ public class LoginService {
         return user;
     }
 
-    public void logout(@NotNull HttpSession session) {
+    public void logout(HttpSession session) {
         if (session.getAttribute(LOGIN_SESSION) != null) {
             session.invalidate();
         } else {
