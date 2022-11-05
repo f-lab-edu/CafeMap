@@ -25,14 +25,14 @@
     FROM user
     WHERE login_id = #{loginId}
   </select>
-</mapper>
 
-<select id="selectUserById" resultType="com.flab.CafeMap.domain.user.User">
-SELECT id,
-       login_id,
-       name,
-       password,
-       phone_number
-FROM user
-WHERE id = #{Id}
-</select>
+  <select id="selectUserById" resultType="com.flab.CafeMap.domain.user.User">
+    SELECT id,
+           login_id,
+           name,
+           password,
+           phone_number
+    FROM user
+    WHERE id = #{Id}
+  </select>
+</mapper>
