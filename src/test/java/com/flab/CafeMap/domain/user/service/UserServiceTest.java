@@ -30,16 +30,17 @@ class UserServiceTest {
         //given
         userService.addUser(UserSaveRequest.builder()
             .loginId("testId")
-            .password("testPassword")
             .name("testName")
+            .password("testPassword")
             .phoneNumber("01012345678")
             .build());
 
         //when
-        User findUser = userService.findUser("testId");
+        User user = userService.findUser("testId");
 
         //then
-        assertThat(findUser.getLoginId()).isEqualTo("testId");
+        assertThat(user.getLoginId()).isEqualTo("testId");
+        assertThat(user.getName()).isEqualTo("testName");
     }
 
 }

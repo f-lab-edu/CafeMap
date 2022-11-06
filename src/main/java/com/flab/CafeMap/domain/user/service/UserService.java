@@ -1,13 +1,13 @@
 package com.flab.CafeMap.domain.user.service;
 
-import com.flab.CafeMap.domain.login.exception.LoginIdNotFoundException;
+import com.flab.CafeMap.domain.login.exception.UserNotFoundException;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.dao.UserMapper;
-import com.flab.CafeMap.web.user.dto.UserGetResponse;
 import com.flab.CafeMap.web.user.dto.UserSaveRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PatchMapping;
 
 /**
  * @RequiredArgsConstructor : final 필드에 대해 생성자 생성
@@ -15,11 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class UserService {
 
     private final UserMapper userMapper;
 
+    @Transactional
     public User addUser(UserSaveRequest userSaveRequest) {
         User user = userSaveRequest.toEntity();
         userMapper.insertUser(user);
@@ -27,10 +27,16 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User findUser(String loginId) {
-        return userMapper.selectUserByLoginId(loginId).orElseThrow(() -> {
-            throw new LoginIdNotFoundException();
+    public User findUser(String userId) {
+        return userMapper.selectUserByLoginId(userId).orElseThrow(() -> {
+            throw new UserNotFoundException();
         });
     }
 
+    @Transactional(readOnly = true)
+    public User findUserById(Long userId) {
+        return userMapper.selectUserById(userId).orElseThrow(() -> {
+            throw new UserNotFoundException();
+        });
+    }
 }
