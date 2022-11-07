@@ -1,7 +1,5 @@
 package com.flab.CafeMap.web.user.dto;
 
-import com.flab.CafeMap.domain.user.User;
-import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,10 +27,4 @@ public class UserPatchRequest {
 
     @NotNull
     private String phoneNumber;
-
-    @NotNull
-    private String modifiedAt;
-
-    @NotNull
-    private String modifiedBy;
 }

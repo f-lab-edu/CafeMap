@@ -1,8 +1,6 @@
 package com.flab.CafeMap.domain.user.dao;
-
 import com.flab.CafeMap.domain.user.User;
 import java.util.Optional;
-import javax.swing.text.html.Option;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

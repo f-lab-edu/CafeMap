@@ -33,10 +33,16 @@ public class UserService {
         });
     }
 
+    @Transactional(readOnly = true)
+    public User findUserById(Long userId) {
+        return userMapper.selectUserById(userId).orElseThrow(() -> {
+            throw new UserNotFoundException();
+        });
+    }
+
     public User modifyUser(UserPatchRequest userPatchRequest) {
         User user = findUser(userPatchRequest.getLoginId());
-        user.modify(userPatchRequest.getName(), userPatchRequest.getPhoneNumber(),
-            userPatchRequest.getModifiedBy());
+        user.modify(userPatchRequest.getName(), userPatchRequest.getPhoneNumber());
         userMapper.updateUser(user);
         return user;
     }

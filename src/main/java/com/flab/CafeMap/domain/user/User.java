@@ -29,10 +29,9 @@ public class User {
     private String createdBy;
     private String modifiedBy;
 
-    public void modify(String name, String phoneNumber, String modifiedBy){
+    public void modify(String name, String phoneNumber){
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.modifiedAt = LocalDateTime.now();
-        this.modifiedBy = modifiedBy;
     }
 }
