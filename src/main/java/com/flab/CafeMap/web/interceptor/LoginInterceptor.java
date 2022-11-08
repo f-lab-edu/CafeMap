@@ -3,7 +3,6 @@ package com.flab.CafeMap.web.interceptor;
 import static com.flab.CafeMap.domain.login.service.LoginService.LOGIN_SESSION;
 
 import com.flab.CafeMap.domain.login.exception.UnauthenticatedUserException;
-import javax.servlet.UnavailableException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
