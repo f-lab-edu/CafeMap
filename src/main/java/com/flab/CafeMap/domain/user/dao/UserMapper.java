@@ -1,4 +1,5 @@
 package com.flab.CafeMap.domain.user.dao;
+
 import com.flab.CafeMap.domain.user.User;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,7 +14,5 @@ public interface UserMapper {
 
     Optional<User> selectUserByLoginId(String loginId);
 
-    Optional<User> selectUserById(Long id);
-
-    int updateUser(User user);
+    Optional<User> selectUserById(Long Id);
 }
