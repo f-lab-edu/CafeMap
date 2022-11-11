@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.datasource.UserCredentialsDataSourceAdapter;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,11 +34,11 @@ class UserServiceTest {
     void addUser() {
         //given
         userService.addUser(UserSaveRequest.builder()
-                .loginId("testId")
-                .name("testName")
-                .password("testPassword")
-                .phoneNumber("01012345678")
-                .build());
+            .loginId("testId")
+            .name("testName")
+            .password("testPassword")
+            .phoneNumber("01012345678")
+            .build());
 
         //when
         User user = userService.findUser("testId");
@@ -52,11 +53,11 @@ class UserServiceTest {
     void findUser() {
         //given
         userService.addUser(UserSaveRequest.builder()
-                .loginId("testId")
-                .password("testPassword")
-                .name("testName")
-                .phoneNumber("01012345678")
-                .build());
+            .loginId("testId")
+            .password("testPassword")
+            .name("testName")
+            .phoneNumber("01012345678")
+            .build());
 
         //when
         User findUser = userService.findUser("testId");
@@ -77,27 +78,30 @@ class UserServiceTest {
     void modifyUser() {
         //given
         userService.addUser(UserSaveRequest.builder()
-                .id(1L)
-                .loginId("testId")
-                .password("testPassword")
-                .name("testName")
-                .phoneNumber("01012345678")
-                .build());
+            .id(1L)
+            .loginId("testId")
+            .password("testPassword")
+            .name("testName")
+            .phoneNumber("01012345678")
+            .build());
 
-        User findUser = userService.findUserById(1L);
+        User user = userService.findUser("testId");
+        UserPatchRequest userPatchRequest =createUser();
 
         //when
-        userService.modifyUser(1L, createUser());
+        User modifyUser = userService.modifyUser(user.getId(), userPatchRequest);
 
         //then
-        assertThat(findUser.getName()).isEqualTo("testName2");
-        assertThat(findUser.getPhoneNumber()).isEqualTo("01012345679");
+        assertThat(modifyUser.getName()).isEqualTo("testName2");
+        assertThat(modifyUser.getPhoneNumber()).isEqualTo("01012345679");
     }
 
     private UserPatchRequest createUser() {
         return UserPatchRequest.builder()
-                .name("testName2")
-                .phoneNumber("01012345679")
-                .build();
+            .id(1L)
+            .loginId("testId")
+            .name("testName2")
+            .phoneNumber("01012345679")
+            .build();
     }
 }
