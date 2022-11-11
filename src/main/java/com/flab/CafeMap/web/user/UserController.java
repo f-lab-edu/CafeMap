@@ -2,20 +2,13 @@ package com.flab.CafeMap.web.user;
 
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.service.UserService;
-import com.flab.CafeMap.web.user.dto.UserGetResponse;
-import com.flab.CafeMap.web.user.dto.UserSaveRequest;
-import com.flab.CafeMap.web.user.dto.UserSaveResponse;
+import com.flab.CafeMap.web.user.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @RestController : @Controller + @ResponseBody
@@ -31,7 +24,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserSaveResponse> addUser(
-        @Validated @RequestBody UserSaveRequest userSaveRequest) {
+            @Validated @RequestBody UserSaveRequest userSaveRequest) {
         User newUser = userService.addUser(userSaveRequest);
         UserSaveResponse response = UserSaveResponse.from(newUser);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -42,5 +35,13 @@ public class UserController {
         User user = userService.findUserById(userId);
         UserGetResponse response = UserGetResponse.from(user);
         return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/userId")
+    public ResponseEntity<UserPatchResponse> modifyUser(
+            @PathVariable Long userId,
+            @RequestBody UserPatchRequest userPatchRequest) {
+        User user = userService.modifyUser(userId, userPatchRequest);
+        return new ResponseEntity<>(UserPatchResponse.from(user), HttpStatus.OK);
     }
 }
