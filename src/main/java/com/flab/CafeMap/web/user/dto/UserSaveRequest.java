@@ -21,6 +21,9 @@ import lombok.NoArgsConstructor;
 public class UserSaveRequest {
 
     @NotBlank
+    private Long id;
+
+    @NotBlank
     private String loginId;
 
     @NotBlank
