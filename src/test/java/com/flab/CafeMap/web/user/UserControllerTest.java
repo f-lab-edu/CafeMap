@@ -1,6 +1,8 @@
 package com.flab.CafeMap.web.user;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -8,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.service.UserService;
+import com.flab.CafeMap.web.user.dto.UserPatchRequest;
 import com.flab.CafeMap.web.user.dto.UserSaveRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,12 +40,13 @@ class UserControllerTest {
     ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    @DisplayName("회원가입 성공 시 200 상태코드 반환")
+    @DisplayName("회원가입 성공")
     void addUser() throws Exception {
         //given
         UserSaveRequest userSaveRequest = createUser();
         User user = User.builder()
-            .loginId("testLoginId")
+            .id(1L)
+            .loginId("testId")
             .name("testName")
             .password("testPassword")
             .phoneNumber("01012345678")
@@ -59,7 +63,7 @@ class UserControllerTest {
     }
 
     @Test
-    @DisplayName("회원가입 시 필수 값이 누락되었을 때 400 상태코드 반환")
+    @DisplayName("회원가입 시 필수 값이 누락")
     void addUserFail() throws Exception {
         //given
         UserSaveRequest userSaveRequest = UserSaveRequest.builder()
@@ -76,11 +80,41 @@ class UserControllerTest {
             .andDo(print()).andExpect(status().isBadRequest());
     }
 
+    @Test
+    @DisplayName("회원 아이디로 회원 정보 조회")
+    void getUser() throws Exception {
+        //given
+        User user = User.builder()
+            .id(1L)
+            .loginId("testId")
+            .name("testName")
+            .build();
+        Mockito.when(userService.addUser(any())).thenReturn(user);
+        Mockito.when(userService.findUserById(1L)).thenReturn(user);
+
+        //when
+        mockMvc.perform(get("/users/" + user.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            //then
+            .andDo(print()).andExpect(status().isOk());
+    }
+
     private UserSaveRequest createUser() {
         return UserSaveRequest.builder()
+            .id(1L)
             .loginId("userControllerTestId")
             .name("testName")
             .password("testPassword")
+            .phoneNumber("01012345678")
+            .build();
+    }
+
+    private UserPatchRequest updateUser() {
+        return UserPatchRequest.builder()
+            .id(1L)
+            .loginId("testLoginId")
+            .name("testName")
             .phoneNumber("01012345678")
             .build();
     }
