@@ -1,20 +1,15 @@
 package com.flab.CafeMap.web.login;
 
 import static com.flab.CafeMap.domain.login.service.LoginService.LOGIN_SESSION;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flab.CafeMap.domain.login.exception.LoginSessionNotFoundException;
-import com.flab.CafeMap.domain.login.exception.UnauthenticatedUserException;
 import com.flab.CafeMap.domain.login.service.LoginService;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.web.login.dto.LoginRequest;
-import com.flab.CafeMap.web.user.dto.UserSaveRequest;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -25,7 +20,6 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
 /**
  * @WebMvcTest : 컨트롤러 테스트 시에 테스트에 필요한 빈을 지정하는 애노테이션
