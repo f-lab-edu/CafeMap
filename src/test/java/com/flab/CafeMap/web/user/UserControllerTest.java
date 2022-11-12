@@ -8,11 +8,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flab.CafeMap.domain.login.service.LoginService;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.service.UserService;
 import com.flab.CafeMap.web.interceptor.LoginInterceptor;
-import com.flab.CafeMap.web.user.dto.UserPatchRequest;
 import com.flab.CafeMap.web.user.dto.UserSaveRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,9 +35,6 @@ class UserControllerTest {
 
     @MockBean
     UserService userService;
-
-    @MockBean
-    LoginService loginService;
 
     @MockBean
     LoginInterceptor loginInterceptor;
