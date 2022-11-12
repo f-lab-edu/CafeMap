@@ -50,7 +50,6 @@ class UserControllerTest {
         //given
         UserSaveRequest userSaveRequest = createUser();
         User user = User.builder()
-            .id(1L)
             .loginId("testId")
             .name("testName")
             .password("testPassword")
@@ -96,11 +95,10 @@ class UserControllerTest {
     }
 
     @Test
-    @DisplayName("회원 아이디로 회원 정보 조회")
-    void getUser() throws Exception {
+    @DisplayName("id로 회원 정보 조회")
+    void getUserById() throws Exception {
         //given
         User user = User.builder()
-            .id(1L)
             .loginId("testId")
             .name("testName")
             .password("testPassword")
@@ -114,7 +112,33 @@ class UserControllerTest {
         Mockito.when(userService.findUserById(1L)).thenReturn(user);
 
         //when
-        mockMvc.perform(get("/users/" + user.getId())
+        mockMvc.perform(get("/users/" + 1)
+                .session(session)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            //then
+            .andDo(print()).andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("회원 아이디로 회원 정보 조회")
+    void getUserByLoginId() throws Exception {
+        //given
+        User user = User.builder()
+            .loginId("testId")
+            .name("testName")
+            .password("testPassword")
+            .phoneNumber("01012345678")
+            .build();
+
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute(LOGIN_SESSION, "test");
+
+        Mockito.when(userService.addUser(any())).thenReturn(user);
+        Mockito.when(userService.findUser("testId")).thenReturn(user);
+
+        //when
+        mockMvc.perform(get("/users/" + 1)
                 .session(session)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -124,8 +148,7 @@ class UserControllerTest {
 
     private UserSaveRequest createUser() {
         return UserSaveRequest.builder()
-            .id(1L)
-            .loginId("userControllerTestId")
+            .loginId("testId")
             .name("testName")
             .password("testPassword")
             .phoneNumber("01012345678")

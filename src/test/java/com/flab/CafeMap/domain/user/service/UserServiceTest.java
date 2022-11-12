@@ -76,7 +76,6 @@ class UserServiceTest {
     void modifyUser() {
         //given
         userService.addUser(UserSaveRequest.builder()
-            .id(1L)
             .loginId("testId")
             .password("testPassword")
             .name("testName")
@@ -96,7 +95,6 @@ class UserServiceTest {
 
     private UserPatchRequest createUser() {
         return UserPatchRequest.builder()
-            .id(1L)
             .loginId("testId")
             .name("testName2")
             .phoneNumber("01012345679")
