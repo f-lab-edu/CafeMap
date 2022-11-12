@@ -1,14 +1,18 @@
 package com.flab.CafeMap.web.login;
 
+import static com.flab.CafeMap.domain.login.service.LoginService.LOGIN_SESSION;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flab.CafeMap.domain.login.exception.UnauthenticatedUserException;
 import com.flab.CafeMap.domain.login.service.LoginService;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.web.login.dto.LoginRequest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -16,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -45,10 +50,14 @@ class LoginControllerTest {
             .loginId("testLoginId")
             .name("testName")
             .build();
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute(LOGIN_SESSION, "test");
+
         Mockito.when(loginService.login(any(), any())).thenReturn(user);
 
         //when
         mockMvc.perform(post("/login")
+                .session(session)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(loginRequest))
                 .accept(MediaType.APPLICATION_JSON))
@@ -60,14 +69,30 @@ class LoginControllerTest {
     @DisplayName("로그아웃 성공 시 200 상태코드 반환")
     void logout() throws Exception {
         //given
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute(LOGIN_SESSION, "test");
+
         Mockito.doNothing().when(loginService).logout(any());
 
         //when
         mockMvc.perform(post("/logout")
+                .session(session)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
             //then
             .andDo(print()).andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("세션이 존재하지 않는 경우 UnauthenticatedUserException 예외 호출")
+    void logoutFailed() throws Exception {
+        //given
+        Mockito.doNothing().when(loginService).logout(any());
+
+        //when
+        Assertions.assertThrows(UnauthenticatedUserException.class, () -> mockMvc.perform(
+            post("/logout").contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)));
     }
 
     private LoginRequest createLoginRequest() {
@@ -76,5 +101,4 @@ class LoginControllerTest {
             .password("testPassword")
             .build();
     }
-
 }
