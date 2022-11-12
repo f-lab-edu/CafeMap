@@ -34,12 +34,65 @@ class UserMapperTest {
 
         //when
         int count = 0;
-
         count += userMapper.insertUser(user1);
         count += userMapper.insertUser(user2);
 
         //then
         assertThat(count).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("loginId로 User 정상 반환 확인 테스트")
+    void selectUserByLoginId() {
+        //given
+        User user = createUser("id", "testName", "testPassword", "01012345678", "testCreatedBy");
+        userMapper.insertUser(user);
+
+        //when
+        User findUser = (userMapper.selectUserByLoginId(user.getLoginId())).orElseThrow();
+
+        //then
+        assertThat(findUser.getLoginId()).isEqualTo(user.getLoginId());
+        assertThat(findUser.getName()).isEqualTo(user.getName());
+    }
+
+    @Test
+    @DisplayName("id로 User 정상 반환 확인 테스트")
+    void selectUserById() {
+        //given
+        User user1 = createUser("id", "testName", "testPassword", "01012345678", "testCreatedBy");
+        User user2 = createUser("id2", "testName2", "testPassword2", "01012345679",
+            "testCreatedBy2");
+        userMapper.insertUser(user1);
+        userMapper.insertUser(user2);
+
+        //when
+        User findUser1 = (userMapper.selectUserById(user1.getId())).orElseThrow();
+        User findUser2 = (userMapper.selectUserById(user2.getId())).orElseThrow();
+
+        //then
+        assertThat(findUser1.getId()).isEqualTo(user1.getId());
+        assertThat(findUser2.getId()).isEqualTo(user2.getId());
+    }
+
+    @Test
+    @DisplayName("User update 쿼리 테스트")
+    void updateUser() {
+        //given
+        User user1 = createUser("id", "testName", "testPassword", "01012345678",
+            "testCreatedBy");
+        userMapper.insertUser(user1);
+        User user = userMapper.selectUserById(user1.getId()).orElseThrow();
+        user.modify("testName2", "01012345679");
+
+        //when
+        int count = 0;
+        count += userMapper.updateUser(user);
+
+        //then
+        assertThat(count).isEqualTo(1);
+        assertThat(user.getName()).isEqualTo("testName2");
+        assertThat(user.getPhoneNumber()).isEqualTo("01012345679");
     }
 
     private User createUser(String testId, String testName, String testPassword,
@@ -52,5 +105,4 @@ class UserMapperTest {
             .createdBy(testCreatedBy).createdAt(LocalDateTime.now())
             .build();
     }
-
 }
