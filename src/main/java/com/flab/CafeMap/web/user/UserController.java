@@ -24,7 +24,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserSaveResponse> addUser(
-            @Validated @RequestBody UserSaveRequest userSaveRequest) {
+        @Validated @RequestBody UserSaveRequest userSaveRequest) {
         User newUser = userService.addUser(userSaveRequest);
         UserSaveResponse response = UserSaveResponse.from(newUser);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -39,8 +39,8 @@ public class UserController {
 
     @PatchMapping("/{userId}")
     public ResponseEntity<UserPatchResponse> modifyUser(
-            @PathVariable Long userId,
-            @RequestBody UserPatchRequest userPatchRequest) {
+        @PathVariable Long userId,
+        @RequestBody UserPatchRequest userPatchRequest) {
         User user = userService.modifyUser(userId, userPatchRequest);
         return new ResponseEntity<>(UserPatchResponse.from(user), HttpStatus.OK);
     }
