@@ -109,14 +109,5 @@ class UserControllerTest {
             .phoneNumber("01012345678")
             .build();
     }
-
-    private UserPatchRequest updateUser() {
-        return UserPatchRequest.builder()
-            .id(1L)
-            .loginId("testLoginId")
-            .name("testName")
-            .phoneNumber("01012345678")
-            .build();
-    }
 }
 
