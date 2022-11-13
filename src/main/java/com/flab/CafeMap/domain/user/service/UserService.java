@@ -1,7 +1,6 @@
 package com.flab.CafeMap.domain.user.service;
 
 import com.flab.CafeMap.domain.login.exception.UserNotFoundException;
-import com.flab.CafeMap.domain.login.service.LoginService;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.dao.UserMapper;
 import com.flab.CafeMap.web.user.dto.UserPatchRequest;
@@ -9,9 +8,6 @@ import com.flab.CafeMap.web.user.dto.UserSaveRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 /**
  * @RequiredArgsConstructor : final 필드에 대해 생성자 생성

@@ -57,7 +57,7 @@ class LoginServiceTest {
     }
 
     @Test
-    @DisplayName("이미 해당 아이디로 로그인 되어있을 때 예외 호출 확인")
+    @DisplayName("이미 해당 아이디로 로그인 되어있을 때 예외 호출 테스트")
     void duplicatedLoginSessionExceptionTest() {
         //given
         UserSaveRequest userSaveRequest = createUser();
@@ -76,7 +76,7 @@ class LoginServiceTest {
     }
 
     @Test
-    @DisplayName("아이디를 찾을 수 없을 때 예외 호출 확인")
+    @DisplayName("아이디를 찾을 수 없을 때 예외 호출 테스트")
     void LoginIdNotFoundExceptionTest() {
         //given
         LoginRequest loginRequest = new LoginRequest("testLoginId", "testPassword");
@@ -109,7 +109,7 @@ class LoginServiceTest {
     }
 
     @Test
-    @DisplayName("로그아웃 시 세션이 존재하지 않는 경우 LoginSessionNotFoundException 예외 호출")
+    @DisplayName("로그아웃 시 세션이 존재하지 않는 경우 LoginSessionNotFoundException 예외 호출 테스트")
     void logoutFailed() {
         //given
         MockHttpSession session = new MockHttpSession();
