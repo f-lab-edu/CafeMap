@@ -4,8 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.flab.CafeMap.domain.login.exception.DuplicatedLoginSessionException;
-import com.flab.CafeMap.domain.login.exception.UserNotFoundException;
 import com.flab.CafeMap.domain.login.exception.LoginSessionNotFoundException;
+import com.flab.CafeMap.domain.login.exception.UserNotFoundException;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.service.UserService;
 import com.flab.CafeMap.web.login.dto.LoginRequest;
@@ -42,12 +42,12 @@ class LoginServiceTest {
         UserSaveRequest userSaveRequest = createUser();
         userService.addUser(userSaveRequest);
 
-        MockHttpSession mockHttpSession = new MockHttpSession();
+        MockHttpSession session = new MockHttpSession();
         LoginRequest loginRequest = new LoginRequest(userSaveRequest.getLoginId(),
             "testLoginPassword");
 
         //when
-        User user = loginService.login(loginRequest, mockHttpSession);
+        User user = loginService.login(loginRequest, session);
 
         //then
         assertThat(user.getLoginId()).isEqualTo(userSaveRequest.getLoginId());
@@ -57,34 +57,34 @@ class LoginServiceTest {
     }
 
     @Test
-    @DisplayName("이미 해당 아이디로 로그인 되어있을 때 예외 호출 확인")
+    @DisplayName("이미 해당 아이디로 로그인 되어있을 때 예외 호출 테스트")
     void duplicatedLoginSessionExceptionTest() {
         //given
         UserSaveRequest userSaveRequest = createUser();
         userService.addUser(userSaveRequest);
 
-        MockHttpSession mockHttpSession = new MockHttpSession();
+        MockHttpSession session = new MockHttpSession();
         LoginRequest loginRequest = new LoginRequest(userSaveRequest.getLoginId(), "testPassword");
 
         //when
-        loginService.login(loginRequest, mockHttpSession);
+        loginService.login(loginRequest, session);
 
         //then
         assertThatThrownBy(() -> {
-            loginService.login(loginRequest, mockHttpSession);
+            loginService.login(loginRequest, session);
         }).isInstanceOf(DuplicatedLoginSessionException.class);
     }
 
     @Test
-    @DisplayName("아이디를 찾을 수 없을 때 예외 호출 확인")
+    @DisplayName("아이디를 찾을 수 없을 때 예외 호출 테스트")
     void LoginIdNotFoundExceptionTest() {
         //given
         LoginRequest loginRequest = new LoginRequest("testLoginId", "testPassword");
-        MockHttpSession mockHttpSession = new MockHttpSession();
+        MockHttpSession session = new MockHttpSession();
 
         //when, then
         assertThatThrownBy(() -> {
-            loginService.login(loginRequest, mockHttpSession);
+            loginService.login(loginRequest, session);
         }).isInstanceOf(UserNotFoundException.class);
     }
 
@@ -95,28 +95,28 @@ class LoginServiceTest {
         UserSaveRequest userSaveRequest = createUser();
         userService.addUser(userSaveRequest);
 
-        MockHttpSession mockHttpSession = new MockHttpSession();
+        MockHttpSession session = new MockHttpSession();
         LoginRequest loginRequest = new LoginRequest(userSaveRequest.getLoginId(),
             "testPassword");
 
-        loginService.login(loginRequest, mockHttpSession);
+        loginService.login(loginRequest, session);
 
         //when
-        loginService.logout(mockHttpSession);
+        loginService.logout(session);
 
         //then
-        assertThat(mockHttpSession.isInvalid()).isTrue();
+        assertThat(session.isInvalid()).isTrue();
     }
 
     @Test
-    @DisplayName("로그아웃 시 세션정보를 찾을 수 없을 때 예외 호출 확성")
-    void loginSessionNotFoundExceptionTest() {
+    @DisplayName("로그아웃 시 세션이 존재하지 않는 경우 LoginSessionNotFoundException 예외 호출 테스트")
+    void logoutFailed() {
         //given
-        MockHttpSession mockHttpSession = new MockHttpSession();
+        MockHttpSession session = new MockHttpSession();
 
         //when, then
         assertThatThrownBy(() -> {
-            loginService.logout(mockHttpSession);
+            loginService.logout(session);
         }).isInstanceOf(LoginSessionNotFoundException.class);
     }
 
@@ -128,5 +128,4 @@ class LoginServiceTest {
             .phoneNumber("testPhoneNumber")
             .build();
     }
-
 }

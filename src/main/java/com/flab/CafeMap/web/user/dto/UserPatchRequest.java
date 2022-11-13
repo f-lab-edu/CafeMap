@@ -20,9 +20,6 @@ import lombok.NoArgsConstructor;
 public class UserPatchRequest {
 
     @NotNull
-    private Long id;
-
-    @NotNull
     private String loginId;
 
     @NotNull

@@ -2,7 +2,6 @@ package com.flab.CafeMap.web.user.dto;
 
 import com.flab.CafeMap.domain.user.User;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,9 +20,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserSaveRequest {
 
-    @NotNull
-    private Long id;
-
     @NotBlank
     private String loginId;
 
@@ -38,7 +34,6 @@ public class UserSaveRequest {
 
     public User toEntity() {
         return User.builder()
-            .id(this.id)
             .loginId(this.loginId)
             .name(this.name)
             .password(this.password)
