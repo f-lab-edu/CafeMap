@@ -44,10 +44,11 @@ class UserServiceTest {
         //then
         assertThat(user.getLoginId()).isEqualTo("testId");
         assertThat(user.getName()).isEqualTo("testName");
+        assertThat(user.getPhoneNumber()).isEqualTo("01012345678");
     }
 
     @Test
-    @DisplayName("loginId로 회원 정보 조회")
+    @DisplayName("loginId로 회원 정보 조회 테스트")
     void findUser() {
         //given
         userService.addUser(UserSaveRequest.builder()
@@ -66,9 +67,9 @@ class UserServiceTest {
 
     @Test
     @DisplayName("loginId로 회원 정보 조회 실패 시 예외 호출 테스트")
-    void findUserFailed() {
+    void findUserByIdFailed() {
         //given, when, then
-        Assertions.assertThrows(UserNotFoundException.class, () -> userService.findUser("testId"));
+        Assertions.assertThrows(UserNotFoundException.class, () -> userService.findUserById(1L));
     }
 
     @Test
@@ -76,7 +77,6 @@ class UserServiceTest {
     void modifyUser() {
         //given
         userService.addUser(UserSaveRequest.builder()
-            .id(1L)
             .loginId("testId")
             .password("testPassword")
             .name("testName")
@@ -84,7 +84,7 @@ class UserServiceTest {
             .build());
 
         User user = userService.findUser("testId");
-        UserPatchRequest userPatchRequest =createUser();
+        UserPatchRequest userPatchRequest = createUser();
 
         //when
         User modifyUser = userService.modifyUser(user.getId(), userPatchRequest);
@@ -96,7 +96,6 @@ class UserServiceTest {
 
     private UserPatchRequest createUser() {
         return UserPatchRequest.builder()
-            .id(1L)
             .loginId("testId")
             .name("testName2")
             .phoneNumber("01012345679")
