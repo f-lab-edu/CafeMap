@@ -1,5 +1,6 @@
 package com.flab.CafeMap.web.user;
 
+import static com.flab.CafeMap.domain.login.service.LoginService.LOGIN_SESSION;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -9,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.service.UserService;
+import com.flab.CafeMap.web.interceptor.LoginInterceptor;
 import com.flab.CafeMap.web.user.dto.UserPatchRequest;
 import com.flab.CafeMap.web.user.dto.UserSaveRequest;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -33,13 +36,15 @@ class UserControllerTest {
     @MockBean
     UserService userService;
 
+    @MockBean
+    LoginInterceptor loginInterceptor;
+
     @Autowired
     MockMvc mockMvc;
 
     ObjectMapper objectMapper = new ObjectMapper();
 
-    @Test
-    @DisplayName("회원가입 성공")
+    @DisplayName("회원가입 성공 테스트")
     void addUser() throws Exception {
         //given
         UserSaveRequest userSaveRequest = createUser();
@@ -50,10 +55,16 @@ class UserControllerTest {
             .password("testPassword")
             .phoneNumber("01012345678")
             .build();
+
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute(LOGIN_SESSION, "test");
+
         Mockito.when(userService.addUser(any())).thenReturn(user);
+        Mockito.when(loginInterceptor.preHandle(any(), any(), any())).thenReturn(true);
 
         //when
         mockMvc.perform(post("/users")
+                .session(session)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(userSaveRequest))
                 .accept(MediaType.APPLICATION_JSON))
@@ -70,8 +81,12 @@ class UserControllerTest {
             .name("testName")
             .password("testPassword").build();
 
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute(LOGIN_SESSION, "test");
+
         //when
         mockMvc.perform(post("/users")
+                .session(session)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(userSaveRequest))
                 .accept(MediaType.APPLICATION_JSON))
@@ -80,19 +95,51 @@ class UserControllerTest {
     }
 
     @Test
-    @DisplayName("회원 아이디로 회원 정보 조회")
-    void getUser() throws Exception {
+    @DisplayName("id로 회원 정보 조회")
+    void getUserById() throws Exception {
         //given
         User user = User.builder()
-            .id(1L)
             .loginId("testId")
             .name("testName")
+            .password("testPassword")
+            .phoneNumber("01012345678")
             .build();
+
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute(LOGIN_SESSION, "test");
+
         Mockito.when(userService.addUser(any())).thenReturn(user);
         Mockito.when(userService.findUserById(1L)).thenReturn(user);
 
         //when
-        mockMvc.perform(get("/users/" + user.getId())
+        mockMvc.perform(get("/users/" + 1)
+                .session(session)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            //then
+            .andDo(print()).andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("회원 아이디로 회원 정보 조회")
+    void getUserByLoginId() throws Exception {
+        //given
+        User user = User.builder()
+            .loginId("testId")
+            .name("testName")
+            .password("testPassword")
+            .phoneNumber("01012345678")
+            .build();
+
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute(LOGIN_SESSION, "test");
+
+        Mockito.when(userService.addUser(any())).thenReturn(user);
+        Mockito.when(userService.findUser("testId")).thenReturn(user);
+
+        //when
+        mockMvc.perform(get("/users/" + 1)
+                .session(session)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
             //then
@@ -104,14 +151,6 @@ class UserControllerTest {
             .loginId("userControllerTestId")
             .name("testName")
             .password("testPassword")
-            .phoneNumber("01012345678")
-            .build();
-    }
-
-    private UserPatchRequest updateUser() {
-        return UserPatchRequest.builder()
-            .loginId("testLoginId")
-            .name("testName")
             .phoneNumber("01012345678")
             .build();
     }
