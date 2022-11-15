@@ -18,8 +18,8 @@ public class UserAddress {
     private String loginId;
     private String streetAddress;
     private String detailAddress;
-    private BigDecimal longitude;
     private BigDecimal latitude;
+    private BigDecimal longitude;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private String createdBy;
