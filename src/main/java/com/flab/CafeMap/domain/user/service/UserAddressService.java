@@ -5,8 +5,11 @@ import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.UserAddress;
 import com.flab.CafeMap.domain.user.dao.UserAddressMapper;
 import com.flab.CafeMap.domain.user.dao.UserMapper;
+import com.flab.CafeMap.web.api.KakaoMapApi;
 import com.flab.CafeMap.web.user.dto.UserAddressSaveRequest;
+import com.flab.CafeMap.web.user.dto.kakao.KakaoMapApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +26,8 @@ public class UserAddressService {
 
     private final UserAddressMapper userAddressMapper;
 
+    private final KakaoMapApi kakaoMapApi;
+
     @Transactional
     public UserAddress addUserAddress(Long id, UserAddressSaveRequest userAddressSaveRequest) {
         UserAddress userAddress = createUserAddress(id, userAddressSaveRequest);
@@ -32,6 +37,8 @@ public class UserAddressService {
 
     private UserAddress createUserAddress(Long id, UserAddressSaveRequest userAddressSaveRequest) {
         String loginId = findUserLoginId(id);
+
+
         return null;
     }
 
