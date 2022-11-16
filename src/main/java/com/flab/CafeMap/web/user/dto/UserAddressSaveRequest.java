@@ -1,6 +1,5 @@
 package com.flab.CafeMap.web.user.dto;
 
-import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -13,9 +12,8 @@ import lombok.Getter;
 @Builder
 public class UserAddressSaveRequest {
 
-    @NotNull
+    private String x;
+    private String y;
     private String streetAddress;
-
-    @NotNull
     private String detailAddress;
 }
