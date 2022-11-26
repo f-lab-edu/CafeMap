@@ -27,4 +27,6 @@ jobs:
         run : chmod +x gradlew
 
       - name: Build with Gradle
+        env:
+          KAKAO_MAP_API_KEY: ${{secrets.KAKAO_MAP_API_KEY}} 
         run: ./gradlew build
