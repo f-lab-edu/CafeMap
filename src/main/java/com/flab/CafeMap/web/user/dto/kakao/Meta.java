@@ -5,5 +5,5 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Meta {
 
     @JsonProperty("total_count")
-    private Integer totalCount;
+    private String totalCount;
 }
