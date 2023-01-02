@@ -12,6 +12,8 @@ import lombok.Getter;
 @Builder
 public class KakaoMapApiRequest {
 
+    private String category_group_code="CE7";
     private String x;
     private String y;
+    private Integer radius;
 }

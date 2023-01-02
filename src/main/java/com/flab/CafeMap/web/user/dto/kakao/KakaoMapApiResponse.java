@@ -14,5 +14,5 @@ import lombok.Getter;
 public class KakaoMapApiResponse {
 
     private Meta meta;
-    private List<Document> documents;
+    private List<Documents> documents;
 }
