@@ -135,8 +135,8 @@ class UserMapperTest {
             .loginId(loginId)
             .streetAddress("서울시 강남구")
             .detailAddress("논현동 207")
-            .latitude(37.513863998587)
-            .longitude(127.0312783056)
+            .latitude("37.513863998587")
+            .longitude("127.0312783056")
             .createdBy(loginId)
             .createdAt(LocalDateTime.now())
             .build();
