@@ -1,11 +1,12 @@
 package com.flab.CafeMap.web.api;
 
-import com.flab.CafeMap.web.user.dto.UserAddressSaveRequest;
 import com.flab.CafeMap.web.user.dto.kakao.KakaoMapApiRequest;
 import com.flab.CafeMap.web.user.dto.kakao.KakaoMapApiResponse;
 import java.net.URI;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -28,19 +29,21 @@ public class KakaoMapApi {
 
     private final WebClient webClient;
 
-    @Value("${kakao.SecretKey}")
-    private String authorization;
+    @Value("${Kakao.Key}")
+    private String kakaoSecretKey;
 
     public static final String kakaoHeader = "KaKaoAK ";
     public static final String kakaoHost = "https://dapi.kakao.com";
-    public static final String kakaoURL = "/v2/local/search/coord2address.json";
+    public static final String kakaoURL = "/v2/local/search/category.json";
 
     public ResponseEntity<KakaoMapApiResponse> getAddressByCoordinates(
         KakaoMapApiRequest kakaoMapApiRequest) {
 
         URI url = UriComponentsBuilder.fromHttpUrl(kakaoHost + kakaoURL)
+            .queryParam("category_group_code", kakaoMapApiRequest.getCategory_group_code())
             .queryParam("x", kakaoMapApiRequest.getX())
             .queryParam("y", kakaoMapApiRequest.getY())
+            .queryParam("radius", kakaoMapApiRequest.getRadius())
             .build()
             .toUri();
 
@@ -49,7 +52,7 @@ public class KakaoMapApi {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         httpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        httpHeaders.set("Authorization", "KakaoAK " + authorization);
+        httpHeaders.set("Authorization", "KakaoAK " + kakaoSecretKey);
 
         HttpEntity httpEntity = new HttpEntity<>(httpHeaders);
 
