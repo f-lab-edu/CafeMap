@@ -3,10 +3,8 @@ package com.flab.CafeMap.web.api;
 import com.flab.CafeMap.web.user.dto.kakao.KakaoMapApiRequest;
 import com.flab.CafeMap.web.user.dto.kakao.KakaoMapApiResponse;
 import java.net.URI;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -52,7 +50,7 @@ public class KakaoMapApi {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         httpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        httpHeaders.set("Authorization", "KakaoAK " + kakaoSecretKey);
+        httpHeaders.set("Authorization", kakaoHeader + kakaoSecretKey);
 
         HttpEntity httpEntity = new HttpEntity<>(httpHeaders);
 
