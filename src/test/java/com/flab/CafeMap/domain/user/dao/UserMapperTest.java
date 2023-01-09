@@ -115,8 +115,8 @@ class UserMapperTest {
         assertThat(result.getLoginId()).isEqualTo(user.getLoginId());
         assertThat(result.getStreetAddress()).isEqualTo(userAddress.getStreetAddress());
         assertThat(result.getDetailAddress()).isEqualTo(userAddress.getDetailAddress());
-        assertThat(result.getLatitude()).isEqualTo(37.513863998587);
-        assertThat(result.getLongitude()).isEqualTo(127.0312783056);
+        assertThat(result.getLatitude()).isEqualTo("37.513863998587");
+        assertThat(result.getLongitude()).isEqualTo("127.0312783056");
     }
 
     private User createUser(String testId, String testName, String testPassword,
