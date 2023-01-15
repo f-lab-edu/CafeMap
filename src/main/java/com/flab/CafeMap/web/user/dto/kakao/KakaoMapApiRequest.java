@@ -15,5 +15,4 @@ public class KakaoMapApiRequest {
     private String category_group_code;
     private String x;
     private String y;
-    private Integer radius;
 }

@@ -1,8 +1,8 @@
 package com.flab.CafeMap.web.user.dto.kakao;
 
 import java.util.List;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * @Getter : getter 메소드를 자동으로 생성
@@ -10,7 +10,7 @@ import lombok.Getter;
  */
 
 @Getter
-@Builder
+@NoArgsConstructor
 public class KakaoMapApiResponse {
 
     private Meta meta;

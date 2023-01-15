@@ -5,5 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Meta {
 
     @JsonProperty("total_count")
-    private String totalCount;
+    private Integer totalCount;
+
+    @JsonProperty("pageable_count")
+    private Integer pageableCount;
+
+    @JsonProperty("is_end")
+    private Boolean isEnd;
 }
