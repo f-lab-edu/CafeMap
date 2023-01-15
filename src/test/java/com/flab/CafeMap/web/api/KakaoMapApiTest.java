@@ -1,7 +1,5 @@
 package com.flab.CafeMap.web.api;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.flab.CafeMap.web.user.dto.kakao.KakaoMapApiRequest;
 import com.flab.CafeMap.web.user.dto.kakao.KakaoMapApiResponse;
 import org.junit.jupiter.api.Assertions;
@@ -25,7 +23,6 @@ class KakaoMapApiTest {
             .category_group_code("CE7")
             .x("127")
             .y("37")
-            .radius(19)
             .build();
         
         //when

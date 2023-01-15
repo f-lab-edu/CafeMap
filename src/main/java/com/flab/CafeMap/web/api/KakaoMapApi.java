@@ -30,7 +30,7 @@ public class KakaoMapApi {
     @Value("${Kakao.Key}")
     private String kakaoSecretKey;
 
-    public static final String kakaoHeader = "KaKaoAK ";
+    public static final String kakaoHeader = "KakaoAK ";
     public static final String kakaoHost = "https://dapi.kakao.com";
     public static final String kakaoURL = "/v2/local/search/category.json";
 
@@ -41,7 +41,7 @@ public class KakaoMapApi {
             .queryParam("category_group_code", kakaoMapApiRequest.getCategory_group_code())
             .queryParam("x", kakaoMapApiRequest.getX())
             .queryParam("y", kakaoMapApiRequest.getY())
-            .queryParam("radius", kakaoMapApiRequest.getRadius())
+            .queryParam("radius100")
             .build()
             .toUri();
 
@@ -50,13 +50,15 @@ public class KakaoMapApi {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         httpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        httpHeaders.set("Authorization", kakaoHeader + kakaoSecretKey);
+        httpHeaders.set("Authorization", kakaoHeader + kakaoSecretKey); //헤더이름과 값
 
         HttpEntity httpEntity = new HttpEntity<>(httpHeaders);
 
-        return webClient.get()
+        return webClient
+            .get()
             .uri(url)
             .accept(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, kakaoHeader + kakaoSecretKey)
             .retrieve()
             .toEntity(KakaoMapApiResponse.class)
             .block();
