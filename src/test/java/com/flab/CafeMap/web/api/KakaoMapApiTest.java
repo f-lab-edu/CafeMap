@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
 /**
@@ -26,14 +27,15 @@ class KakaoMapApiTest {
     void getAddressByCoordinates() {
 
         //given
-        KakaoMapApiRequest kakaoMapApiRequest = KakaoMapApiRequest.builder()
-            .category_group_code("CE7")
-            .x("127")
-            .y("37")
-            .build();
-        
+        ResponseEntity<KakaoMapApiResponse> response = kakaoMapApi.getAddressByCoordinates(
+            KakaoMapApiRequest.builder()
+                .category_group_code("CE7")
+                .x("127.423084873712")
+                .y("37.0789561558879")
+                .build());
+
         //when
-        KakaoMapApiResponse result = kakaoMapApi.getAddressByCoordinates(kakaoMapApiRequest).getBody();
+        KakaoMapApiResponse result = response.getBody();
 
         //then
         Assertions.assertNotNull(result);

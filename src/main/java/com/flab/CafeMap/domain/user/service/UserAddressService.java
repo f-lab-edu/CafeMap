@@ -39,8 +39,8 @@ public class UserAddressService {
             .id(userId)
             .streetAddress(userAddressSaveRequest.getStreetAddress())
             .detailAddress(userAddressSaveRequest.getDetailAddress())
-            .latitude(kakaoMapApiResponse.getDocuments().get(0).getX())
-            .longitude(kakaoMapApiResponse.getDocuments().get(0).getY())
+            .latitude(kakaoMapApiResponse.getDocument().get(0).getX())
+            .longitude(kakaoMapApiResponse.getDocument().get(0).getY())
             .build();
 
         userAddressMapper.insertUserAddress(userAddress);
