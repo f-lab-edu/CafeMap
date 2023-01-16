@@ -50,7 +50,7 @@ public class KakaoMapApi {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         httpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        httpHeaders.set("Authorization", kakaoHeader + kakaoSecretKey); //헤더이름과 값
+        httpHeaders.set("Authorization", kakaoHeader + kakaoSecretKey);
 
         HttpEntity httpEntity = new HttpEntity<>(httpHeaders);
 
