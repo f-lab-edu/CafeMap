@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: 
-       - main
-       - feature/*
+    branches:
+      - main
+      - feature/*
     # pull_request:
     # branches: [ "main" ]
 
@@ -27,4 +27,5 @@ jobs:
         run : chmod +x gradlew
 
       - name: Build with Gradle
-          run: ./gradlew build
+        run: ./gradlew build
+
