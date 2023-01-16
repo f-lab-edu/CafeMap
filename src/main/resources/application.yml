@@ -12,4 +12,4 @@ mybatis:
 
 # Kakao Map API
 Kakao:
-  Key: ${KAKAO_MAP_API_KEY}
+  SecretKey: ${Kakao.Key}
