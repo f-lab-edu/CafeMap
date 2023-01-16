@@ -28,4 +28,9 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
+        
+      - name: Run Tests
+        env:
+          KAKAO_API_KEY: ${{ secrets.KAKAO_API_KEY }}
+        run: ./gradlew test
 
