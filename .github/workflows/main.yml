@@ -19,18 +19,15 @@ jobs:
         with:
           java-version: 17
 
-      - name : Copy secret
-        env:
-          KAKAO_SECRET: ${{ secrets.KAKAO_SECRET }}
-        
       - name : Grant execute permission for gradlew
         run : chmod +x gradlew
         
       - name: Build with Gradle
+        env: 
+          KAKAO_SECRET: ${{ secrets.KAKAO_SECRET }}
         run: ./gradlew build
         
       - name: Run Tests
         env:
           KAKAO_SECRET: ${{ secrets.KAKAO_SECRET }}
         run: ./gradlew test
-
