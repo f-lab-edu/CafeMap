@@ -27,7 +27,7 @@ public class KakaoMapApi {
 
     private final WebClient webClient;
 
-    @Value("${KAKAO_SECRET}")
+    @Value("${kakao.secret}")
     private String kakaoSecretKey;
 
     public static final String kakaoHeader = "KakaoAK ";
