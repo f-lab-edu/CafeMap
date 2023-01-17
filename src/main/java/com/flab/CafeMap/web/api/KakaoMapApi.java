@@ -54,8 +54,6 @@ public class KakaoMapApi {
         httpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         httpHeaders.set("Authorization", kakaoHeader + kakaoSecretKey);
 
-        HttpEntity httpEntity = new HttpEntity<>(httpHeaders);
-
         return webClient
             .get()
             .uri(url)
