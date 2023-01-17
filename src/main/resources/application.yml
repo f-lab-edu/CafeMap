@@ -11,4 +11,4 @@ mybatis:
     map-underscore-to-camel-case: true
 
 kakao:
-  key: ${KAKAO_SECRET}
+  secret: ${KAKAO_SECRET}

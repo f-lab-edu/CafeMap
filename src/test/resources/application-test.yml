@@ -11,6 +11,6 @@ mybatis:
     map-underscore-to-camel-case: true
 
 kakao:
-  key: e312c50fe99178bb204d587d31c49bbf
+  secret: e312c50fe99178bb204d587d31c49bbf
 
 

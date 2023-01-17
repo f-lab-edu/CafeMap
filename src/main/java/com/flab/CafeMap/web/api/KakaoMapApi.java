@@ -27,11 +27,13 @@ public class KakaoMapApi {
 
     private final WebClient webClient;
 
-    @Value("${kakao.key}")
+    @Value("${kakao.secret}")
     private String kakaoSecretKey;
 
     public static final String kakaoHeader = "KakaoAK ";
+
     public static final String kakaoHost = "https://dapi.kakao.com";
+
     public static final String kakaoURL = "/v2/local/search/category.json";
 
     public ResponseEntity<KakaoMapApiResponse> getAddressByCoordinates(
