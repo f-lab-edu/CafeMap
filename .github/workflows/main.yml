@@ -23,11 +23,9 @@ jobs:
         run : chmod +x gradlew
         
       - name: Build with Gradle
+        run: ./gradlew build
         env: 
           KAKAO_SECRET: ${{ secrets.KAKAO_SECRET }}
-        run: ./gradlew build
         
       - name: Run Tests
-        env:
-          KAKAO_SECRET: ${{ secrets.KAKAO_SECRET }}
         run: ./gradlew test
