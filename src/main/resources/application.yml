@@ -10,5 +10,4 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
-kakao:
-  secret: ${KAKAO_SECRET}
+KAKAO_SECRET : ${SecretKey}
