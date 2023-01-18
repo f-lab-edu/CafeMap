@@ -9,3 +9,5 @@ mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
+
+KAKAO_SECRET: ${SecretKey}
