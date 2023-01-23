@@ -4,7 +4,6 @@ import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.service.UserService;
 import com.flab.CafeMap.web.user.dto.*;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @RequiredArgsConstructor : final 필드에 대해 생성자 생성
  * @RequestMapping : 요청에 맞는 컨트롤러 매핑
  */
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
