@@ -31,12 +31,12 @@ CREATE TABLE user_address
 
 CREATE TABLE cafe
 (
-    id         int            NOT NULL,
-    cafe_id    int            NOT NULL,
-    name       varchar(50)    NOT NULL,
-    latitude   decimal(10, 0) NOT NULL,
-    longitude  decimal(10, 0) NOT NULL,
-    user_id    int            NOT NULL,
-    created_at timestamp      NOT NULL,
+    id           int         NOT NULL AUTO_INCREMENT,
+    cafe_id      varchar(50) NOT NULL,
+    name         varchar(50) NOT NULL,
+    latitude     varchar(50) NOT NULL,
+    longitude    varchar(50) NOT NULL,
+    user_loginId varchar(50) NOT NULL,
+    created_at   timestamp   NOT NULL,
     PRIMARY KEY (`id`)
 );
