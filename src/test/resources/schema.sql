@@ -28,3 +28,4 @@ CREATE TABLE user_address
     modified_by    varchar(50) DEFAULT NULL,
     PRIMARY KEY (`id`)
 );
+
