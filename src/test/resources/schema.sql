@@ -29,3 +29,14 @@ CREATE TABLE user_address
     PRIMARY KEY (`id`)
 );
 
+CREATE TABLE cafe
+(
+    id         int            NOT NULL,
+    cafe_id    int            NOT NULL,
+    name       varchar(50)    NOT NULL,
+    latitude   decimal(10, 0) NOT NULL,
+    longitude  decimal(10, 0) NOT NULL,
+    user_id    int            NOT NULL,
+    created_at timestamp      NOT NULL,
+    PRIMARY KEY (`id`)
+);
