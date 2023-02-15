@@ -33,7 +33,7 @@
            password,
            phone_number
     FROM user
-    WHERE id = #{Id}
+    WHERE id = #{id}
   </select>
 
   <update id="updateUser" useGeneratedKeys="true" keyProperty="id"
