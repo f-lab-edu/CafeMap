@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserAddressMapper {
 
-    void insertUserAddress(UserAddress userAddress);
+    int insertUserAddress(UserAddress userAddress);
 
     Optional<UserAddress> selectUserAddressByLoginId(String loginId);
 }
