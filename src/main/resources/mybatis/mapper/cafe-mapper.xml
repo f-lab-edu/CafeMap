@@ -14,9 +14,9 @@
                      created_at)
     VALUES (#{id},
             #{cafeId},
+            #{name},
             #{latitude},
             #{longitude},
-            #{name},
             NOW())
   </insert>
 

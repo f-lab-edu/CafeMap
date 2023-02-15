@@ -34,8 +34,8 @@ class CafeMapperTest {
             .id(1L)
             .cafeId("testId")
             .name("testName")
-            .latitude("37.513863998587")
-            .longitude("127.0312783056")
+            .latitude(37.513863998587)
+            .longitude(127.0312783056)
             .createdAt(LocalDateTime.now())
             .build();
 
@@ -55,8 +55,8 @@ class CafeMapperTest {
             .id(1L)
             .cafeId("testId")
             .name("testName")
-            .latitude("37.513863998587")
-            .longitude("127.0312783056")
+            .latitude(37.513863998587)
+            .longitude(127.0312783056)
             .createdAt(LocalDateTime.now())
             .build();
 
@@ -78,8 +78,8 @@ class CafeMapperTest {
             .id(1L)
             .cafeId("testId")
             .name("testName")
-            .latitude("37.513863998587")
-            .longitude("127.0312783056")
+            .latitude(37.513863998587)
+            .longitude(127.0312783056)
             .createdAt(LocalDateTime.now())
             .build();
 

@@ -22,7 +22,7 @@ public class Cafe {
     private Long id;
     private String cafeId;
     private String name;
-    private String latitude;
-    private String longitude;
+    private Double latitude;
+    private Double longitude;
     private LocalDateTime createdAt;
 }
