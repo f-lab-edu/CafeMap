@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @ActiveProfiles : 스프링 컨테이터 실행 시 실행 환경을 지정해주는 애노테이션으로, 테스트 시 특정 빈을 로드
  * @Transactional : 선언적 트랜잭션에 사용되는 애노테이션으로 테스트 이후 롤백
  */
+
 @SpringBootTest
 @ActiveProfiles("test")
 @Transactional

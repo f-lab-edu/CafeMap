@@ -116,8 +116,8 @@ class UserMapperTest {
         assertThat(result.getLoginId()).isEqualTo(user.getLoginId());
         assertThat(result.getStreetAddress()).isEqualTo(userAddress.getStreetAddress());
         assertThat(result.getDetailAddress()).isEqualTo(userAddress.getDetailAddress());
-        assertThat(result.getLatitude()).isEqualTo("37.513863998587");
-        assertThat(result.getLongitude()).isEqualTo("127.0312783056");
+        assertThat(result.getLatitude()).isEqualTo(37.513863998587);
+        assertThat(result.getLongitude()).isEqualTo(127.0312783056);
     }
 
     private User createUser(String testId, String testName, String testPassword,
@@ -136,8 +136,8 @@ class UserMapperTest {
             .loginId(loginId)
             .streetAddress("서울시 강남구")
             .detailAddress("논현동 207")
-            .latitude("37.513863998587")
-            .longitude("127.0312783056")
+            .latitude(37.513863998587)
+            .longitude(127.0312783056)
             .createdBy(loginId)
             .createdAt(LocalDateTime.now())
             .build();

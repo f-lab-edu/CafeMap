@@ -23,8 +23,8 @@ public class UserAddress {
     private String loginId;
     private String streetAddress;
     private String detailAddress;
-    private String latitude;
-    private String longitude;
+    private Double latitude;
+    private Double longitude;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private String createdBy;

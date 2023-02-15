@@ -35,10 +35,10 @@ public class Documents {
     private String roadAddressName;
 
     @JsonProperty("x")
-    private String x;
+    private Double x;
 
     @JsonProperty("y")
-    private String y;
+    private Double y;
 
     @JsonProperty("place_url")
     private String placeUrl;

@@ -16,8 +16,8 @@ public class UserAddressSaveResponse {
     private String loginId;
     private String streetAddress;
     private String detailAddress;
-    private String longitude;
-    private String latitude;
+    private Double longitude;
+    private Double latitude;
 
     public static UserAddressSaveResponse from(UserAddress userAddress) {
         return UserAddressSaveResponse.builder()
