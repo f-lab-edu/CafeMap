@@ -36,7 +36,6 @@ CREATE TABLE cafe
     name         varchar(50) NOT NULL,
     latitude     varchar(50) NOT NULL,
     longitude    varchar(50) NOT NULL,
-    user_loginId varchar(50) NOT NULL,
     created_at   timestamp   NOT NULL,
     PRIMARY KEY (`id`)
 );
