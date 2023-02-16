@@ -28,7 +28,6 @@ class CafeMapperTest {
     @Test
     @DisplayName("Cafe insert 쿼리 테스트")
     void insertCafe() {
-
         //given
         Cafe cafe = Cafe.builder()
             .id(1L)
@@ -49,7 +48,6 @@ class CafeMapperTest {
     @Test
     @DisplayName("id로 Cafe 정상 반환 확인 테스트")
     void selectCafeById() {
-
         //given
         Cafe cafe = Cafe.builder()
             .id(1L)
@@ -72,7 +70,6 @@ class CafeMapperTest {
     @Test
     @DisplayName("cafeId로 User 정상 반환 확인 테스트")
     void selectCafeByLoginId() {
-
         //given
         Cafe cafe = Cafe.builder()
             .id(1L)
