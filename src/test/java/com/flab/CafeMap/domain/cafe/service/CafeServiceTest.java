@@ -37,8 +37,9 @@ class CafeServiceTest {
             .build());
 
         //then
-        assertThat(cafe.getId()).isEqualTo(1L);
         assertThat(cafe.getCafeId()).isEqualTo("testId");
         assertThat(cafe.getName()).isEqualTo("testName");
+        assertThat(cafe.getLatitude()).isEqualTo(37.513863998587);
+        assertThat(cafe.getLongitude()).isEqualTo(127.0312783056);
     }
 }
