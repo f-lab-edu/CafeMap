@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class CafeSaveRequest {
 
     @NotNull
-    private Long id;
+    private String cafeId;
 
     @NotNull
     private String name;
@@ -34,7 +34,7 @@ public class CafeSaveRequest {
 
     public Cafe toEntity() {
         return Cafe.builder()
-            .id(this.id)
+            .cafeId(this.cafeId)
             .name(this.name)
             .latitude(this.latitude)
             .longitude(this.longitude)
