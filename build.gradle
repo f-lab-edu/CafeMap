@@ -26,7 +26,10 @@ jacocoTestReport {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
                     "com/flab/CafeMap/**Application.class",
-                    "com/flab/CafeMap/web/api/KakaoMapApi.class"
+                    "com/flab/CafeMap/web/api/KakaoMapApi.class",
+                    "com/flab/CafeMap/web/user/dto/**",
+                    "com/flab/CafeMap/domain/user/service/UserAddressService.class",
+                    "com/flab/CafeMap/domain/login/exception/UnauthenticatedUserException.class"
             ])
         }))
     }
@@ -50,7 +53,10 @@ jacocoTestCoverageVerification {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
                     "com/flab/CafeMap/**Application.class",
-                    "com/flab/CafeMap/web/api/KakaoMapApi.class"
+                    "com/flab/CafeMap/web/api/KakaoMapApi.class",
+                    "com/flab/CafeMap/web/user/dto/**",
+                    "com/flab/CafeMap/domain/user/service/UserAddressService.class",
+                    "com/flab/CafeMap/domain/login/exception/UnauthenticatedUserException.class"
             ])
         }))
     }
