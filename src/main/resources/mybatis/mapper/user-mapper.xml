@@ -6,13 +6,15 @@
 
   <insert id="insertUser" useGeneratedKeys="true" keyProperty="id"
     parameterType="com.flab.CafeMap.domain.user.User">
-    INSERT INTO user(login_id,
+    INSERT INTO user(id,
+                     login_id,
                      name,
                      password,
                      phone_number,
                      created_at,
                      created_by)
-    VALUES (#{loginId},
+    VALUES (#{id},
+            #{loginId},
             #{name},
             #{password},
             #{phoneNumber},
