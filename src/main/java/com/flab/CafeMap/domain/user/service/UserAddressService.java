@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class UserAddressService {
+class UserAddressService {
 
     private final UserService userService;
     private final UserMapper userMapper;
