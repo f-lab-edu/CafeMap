@@ -9,8 +9,28 @@ jacoco {
     toolVersion = "0.8.8"
 }
 
+//테스트 시 JUnit이 함께 동작할 수 있게 함.
+test {
+    useJUnitPlatform()
+
+    /**
+     * test 작업이 끝나고 jacocoTestReport를 실행
+     */
+    finalizedBy 'jacocoTestReport'
+}
+
 //테스트 결과를 받는 부분을 설정
 jacocoTestReport {
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "com/flab/CafeMap/**Application.class",
+                    "com/flab/CafeMap/web/api/KakaoMapApi.class"
+            ])
+        }))
+    }
+
     reports {
         html.enabled true
         xml.enabled true
@@ -23,18 +43,18 @@ jacocoTestReport {
     finalizedBy 'jacocoTestCoverageVerification'
 }
 
-//테스트 시 JUnit이 함께 동작할 수 있게 함.
-test {
-    useJUnitPlatform()
-
-    /**
-     * test 작업이 끝나고 jacocoTestReport를 실행
-     */
-    finalizedBy 'jacocoTestReport'
-}
-
 //커버리지 기준 설정
 jacocoTestCoverageVerification {
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "com/flab/CafeMap/**Application.class",
+                    "com/flab/CafeMap/web/api/KakaoMapApi.class"
+            ])
+        }))
+    }
+
     violationRules {
         rule {
             enabled = true
