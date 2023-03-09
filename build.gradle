@@ -9,14 +9,18 @@ jacoco {
     toolVersion = "0.8.8"
 }
 
-jacocoTestReport { //테스트 결과를 받는 부분을 설정
+//테스트 결과를 받는 부분을 설정
+jacocoTestReport {
     reports {
         html.enabled true
         xml.enabled true
         csv.enabled true
     }
-        //jacocoTestReport 작업이 끝나고 jacocoTestCoverageVerification 순서대로 task가 실행되도록 함.
-        finalizedBy 'jacocoTestCoverageVerification'
+
+    /**
+     * jacocoTestReport 작업이 끝나고 jacocoTestCoverageVerification task 실행
+     */
+    finalizedBy 'jacocoTestCoverageVerification'
 }
 
 //테스트 시 JUnit이 함께 동작할 수 있게 함.
@@ -29,14 +33,15 @@ test {
     finalizedBy 'jacocoTestReport'
 }
 
-jacocoTestCoverageVerification { //검증 수준을 정의
+//커버리지 기준 설정
+jacocoTestCoverageVerification {
     violationRules {
         rule {
             enabled = true
             element = 'CLASS'
 
             limit {
-                counter = 'CLASS'
+                counter = 'LINE'
                 value = 'COVEREDRATIO'
                 minimum = 0.70
             }
