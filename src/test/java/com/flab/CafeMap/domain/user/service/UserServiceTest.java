@@ -33,11 +33,11 @@ class UserServiceTest {
     void addUser() {
         //given
         userService.addUser(UserSaveRequest.builder()
-            .loginId("testId")
-            .name("testName")
-            .password("testPassword")
-            .phoneNumber("01012345678")
-            .build());
+                .loginId("testId")
+                .name("testName")
+                .password("testPassword")
+                .phoneNumber("01012345678")
+                .build());
 
         //when
         User user = userService.findUser("testId");
@@ -53,11 +53,11 @@ class UserServiceTest {
     void findUser() {
         //given
         userService.addUser(UserSaveRequest.builder()
-            .loginId("testId")
-            .password("testPassword")
-            .name("testName")
-            .phoneNumber("01012345678")
-            .build());
+                .loginId("testId")
+                .password("testPassword")
+                .name("testName")
+                .phoneNumber("01012345678")
+                .build());
 
         //when
         User findUser = userService.findUser("testId");
@@ -78,28 +78,24 @@ class UserServiceTest {
     void modifyUser() {
         //given
         userService.addUser(UserSaveRequest.builder()
-            .loginId("testId")
-            .password("testPassword")
-            .name("testName")
-            .phoneNumber("01012345678")
-            .build());
+                .id(1L)
+                .loginId("testId")
+                .password("testPassword")
+                .name("testName")
+                .phoneNumber("01012345678")
+                .build());
 
-        User user = userService.findUser("testId");
-        UserPatchRequest userPatchRequest = createUser();
+        UserPatchRequest userPatchRequest = UserPatchRequest.builder()
+                .loginId("testId")
+                .name("testName2")
+                .phoneNumber("01012345679")
+                .build();
 
         //when
-        User modifyUser = userService.modifyUser(user.getId(), userPatchRequest);
+        User modifyUser = userService.modifyUser(1L, userPatchRequest);
 
         //then
         assertThat(modifyUser.getName()).isEqualTo("testName2");
         assertThat(modifyUser.getPhoneNumber()).isEqualTo("01012345679");
-    }
-
-    private UserPatchRequest createUser() {
-        return UserPatchRequest.builder()
-            .loginId("testId")
-            .name("testName2")
-            .phoneNumber("01012345679")
-            .build();
     }
 }

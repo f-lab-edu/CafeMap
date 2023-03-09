@@ -50,11 +50,12 @@ class UserControllerTest {
         //given
         UserSaveRequest userSaveRequest = createUser();
         User user = User.builder()
-            .loginId("testId")
-            .name("testName")
-            .password("testPassword")
-            .phoneNumber("01012345678")
-            .build();
+                .id(1L)
+                .loginId("testId")
+                .name("testName")
+                .password("testPassword")
+                .phoneNumber("01012345678")
+                .build();
 
         MockHttpSession session = new MockHttpSession();
         session.setAttribute(LOGIN_SESSION, "test");
@@ -64,12 +65,12 @@ class UserControllerTest {
 
         //when
         mockMvc.perform(post("/users")
-                .session(session)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(userSaveRequest))
-                .accept(MediaType.APPLICATION_JSON))
-            //then
-            .andDo(print()).andExpect(status().isCreated());
+                        .session(session)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(userSaveRequest))
+                        .accept(MediaType.APPLICATION_JSON))
+                //then
+                .andDo(print()).andExpect(status().isCreated());
     }
 
     @Test
@@ -77,21 +78,22 @@ class UserControllerTest {
     void addUserFail() throws Exception {
         //given
         UserSaveRequest userSaveRequest = UserSaveRequest.builder()
-            .loginId("testLoginId")
-            .name("testName")
-            .password("testPassword").build();
+                .id(1L)
+                .loginId("testLoginId")
+                .name("testName")
+                .password("testPassword").build();
 
         MockHttpSession session = new MockHttpSession();
         session.setAttribute(LOGIN_SESSION, "test");
 
         //when
         mockMvc.perform(post("/users")
-                .session(session)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(userSaveRequest))
-                .accept(MediaType.APPLICATION_JSON))
-            //then
-            .andDo(print()).andExpect(status().isBadRequest());
+                        .session(session)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(userSaveRequest))
+                        .accept(MediaType.APPLICATION_JSON))
+                //then
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -99,11 +101,11 @@ class UserControllerTest {
     void getUserById() throws Exception {
         //given
         User user = User.builder()
-            .loginId("testId")
-            .name("testName")
-            .password("testPassword")
-            .phoneNumber("01012345678")
-            .build();
+                .loginId("testId")
+                .name("testName")
+                .password("testPassword")
+                .phoneNumber("01012345678")
+                .build();
 
         MockHttpSession session = new MockHttpSession();
         session.setAttribute(LOGIN_SESSION, "test");
@@ -113,11 +115,11 @@ class UserControllerTest {
 
         //when
         mockMvc.perform(get("/users/" + 1)
-                .session(session)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-            //then
-            .andDo(print()).andExpect(status().isOk());
+                        .session(session)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                //then
+                .andDo(print()).andExpect(status().isOk());
     }
 
     @Test
@@ -125,11 +127,11 @@ class UserControllerTest {
     void getUserByLoginId() throws Exception {
         //given
         User user = User.builder()
-            .loginId("testId")
-            .name("testName")
-            .password("testPassword")
-            .phoneNumber("01012345678")
-            .build();
+                .loginId("testId")
+                .name("testName")
+                .password("testPassword")
+                .phoneNumber("01012345678")
+                .build();
 
         MockHttpSession session = new MockHttpSession();
         session.setAttribute(LOGIN_SESSION, "test");
@@ -139,20 +141,21 @@ class UserControllerTest {
 
         //when
         mockMvc.perform(get("/users/" + 1)
-                .session(session)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-            //then
-            .andDo(print()).andExpect(status().isOk());
+                        .session(session)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                //then
+                .andDo(print()).andExpect(status().isOk());
     }
 
     private UserSaveRequest createUser() {
         return UserSaveRequest.builder()
-            .loginId("testId")
-            .name("testName")
-            .password("testPassword")
-            .phoneNumber("01012345678")
-            .build();
+                .id(1L)
+                .loginId("testId")
+                .name("testName")
+                .password("testPassword")
+                .phoneNumber("01012345678")
+                .build();
     }
 }
 
