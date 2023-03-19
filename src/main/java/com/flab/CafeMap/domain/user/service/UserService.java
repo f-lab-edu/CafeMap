@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @RequiredArgsConstructor : final 필드에 대해 생성자 생성
  * @Transactional : 선언적 트랜잭션에 사용되는 애노테이션으로 테스트 이후 롤백
  */
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -27,8 +28,8 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User findUser(String userId) {
-        return userMapper.selectUserByLoginId(userId).orElseThrow(() -> {
+    public User findUser(String loginId) {
+        return userMapper.selectUserByLoginId(loginId).orElseThrow(() -> {
             throw new UserNotFoundException();
         });
     }
@@ -43,7 +44,8 @@ public class UserService {
     @Transactional
     public User modifyUser(Long userId, UserPatchRequest userPatchRequest) {
         User user = findUserById(userId);
-        user.modify(userPatchRequest.getName(), userPatchRequest.getPhoneNumber());
+        user.modify(userPatchRequest.getName(), userPatchRequest.getPhoneNumber(),
+            user.getModifiedBy());
         userMapper.updateUser(user);
         return user;
     }

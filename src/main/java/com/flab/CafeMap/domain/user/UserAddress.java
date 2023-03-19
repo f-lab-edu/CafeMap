@@ -17,22 +17,16 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class UserAddress {
 
     private Long id;
     private String loginId;
-    private String name;
-    private String password;
-    private String phoneNumber;
+    private String streetAddress;
+    private String detailAddress;
+    private Double latitude;
+    private Double longitude;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private String createdBy;
     private String modifiedBy;
-
-    public void modify(String name, String phoneNumber, String modifiedBy){
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.modifiedAt = LocalDateTime.now();
-        this.modifiedBy = modifiedBy;
-    }
 }

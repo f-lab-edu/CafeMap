@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.flab.CafeMap.domain.user.dao.UserMapper">
 
-    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id"
-            parameterType="com.flab.CafeMap.domain.user.User">
-        INSERT INTO user(login_id,
-                         name,
-                         password,
-                         phone_number,
-                         created_at,
-                         created_by)
-        VALUES (#{loginId},
-                #{name},
-                #{password},
-                #{phoneNumber},
-                NOW(),
-                #{createdBy})
-    </insert>
+  <insert id="insertUser" useGeneratedKeys="true" keyProperty="id"
+    parameterType="com.flab.CafeMap.domain.user.User">
+    INSERT INTO user(id,
+                     login_id,
+                     name,
+                     password,
+                     phone_number,
+                     created_at,
+                     created_by)
+    VALUES (#{id},
+            #{loginId},
+            #{name},
+            #{password},
+            #{phoneNumber},
+            NOW(),
+            #{createdBy})
+  </insert>
 
-    <select id="selectUserByLoginId" resultType="com.flab.CafeMap.domain.user.User">
-        SELECT *
-        FROM user
-        WHERE login_id = #{loginId}
-    </select>
+  <select id="selectUserByLoginId" resultType="com.flab.CafeMap.domain.user.User">
+    SELECT *
+    FROM user
+    WHERE login_id = #{loginId}
+  </select>
 
-    <select id="selectUserById" resultType="com.flab.CafeMap.domain.user.User">
-        SELECT id,
-               login_id,
-               name,
-               password,
-               phone_number
-        FROM user
-        WHERE id = #{Id}
-    </select>
+  <select id="selectUserById" resultType="com.flab.CafeMap.domain.user.User">
+    SELECT id,
+           login_id,
+           name,
+           password,
+           phone_number
+    FROM user
+    WHERE id = #{id}
+  </select>
 
-    <update id="updateUser" useGeneratedKeys="true" keyProperty="id"
-            parameterType="com.flab.CafeMap.domain.user.User">
-        UPDATE user
-        SET name         = IFNULL(#{name}, name),
-            phone_number = IFNULL(#{phoneNumber}, phone_number),
-            modified_at  = #{modifiedAt}
-        WHERE id = #{id}
-    </update>
+  <update id="updateUser" useGeneratedKeys="true" keyProperty="id"
+    parameterType="com.flab.CafeMap.domain.user.User">
+    UPDATE user
+    SET name         = IFNULL(#{name}, name),
+        phone_number = IFNULL(#{phoneNumber}, phone_number),
+        modified_at  = #{modifiedAt}
+    WHERE id = #{id}
+  </update>
 </mapper>
