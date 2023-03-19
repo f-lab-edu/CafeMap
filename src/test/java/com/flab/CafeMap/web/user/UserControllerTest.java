@@ -116,7 +116,6 @@ class UserControllerTest {
         Mockito.when(userService.addUser(any())).thenReturn(user);
         Mockito.when(loginInterceptor.preHandle(any(), any(), any())).thenReturn(true);
 
-
         //when
         mockMvc.perform(patch("/users/" + 1)
                 .session(session)
