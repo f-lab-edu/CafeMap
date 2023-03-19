@@ -3,6 +3,7 @@ package com.flab.CafeMap.web.user;
 import static com.flab.CafeMap.domain.login.service.LoginService.LOGIN_SESSION;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -11,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.service.UserService;
 import com.flab.CafeMap.web.interceptor.LoginInterceptor;
+import com.flab.CafeMap.web.user.dto.UserPatchRequest;
 import com.flab.CafeMap.web.user.dto.UserSaveRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,12 +52,12 @@ class UserControllerTest {
         //given
         UserSaveRequest userSaveRequest = createUser();
         User user = User.builder()
-                .id(1L)
-                .loginId("testId")
-                .name("testName")
-                .password("testPassword")
-                .phoneNumber("01012345678")
-                .build();
+            .id(1L)
+            .loginId("testId")
+            .name("testName")
+            .password("testPassword")
+            .phoneNumber("01012345678")
+            .build();
 
         MockHttpSession session = new MockHttpSession();
         session.setAttribute(LOGIN_SESSION, "test");
@@ -65,12 +67,12 @@ class UserControllerTest {
 
         //when
         mockMvc.perform(post("/users")
-                        .session(session)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(userSaveRequest))
-                        .accept(MediaType.APPLICATION_JSON))
-                //then
-                .andDo(print()).andExpect(status().isCreated());
+                .session(session)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(userSaveRequest))
+                .accept(MediaType.APPLICATION_JSON))
+            //then
+            .andDo(print()).andExpect(status().isCreated());
     }
 
     @Test
@@ -78,22 +80,50 @@ class UserControllerTest {
     void addUserFail() throws Exception {
         //given
         UserSaveRequest userSaveRequest = UserSaveRequest.builder()
-                .id(1L)
-                .loginId("testLoginId")
-                .name("testName")
-                .password("testPassword").build();
+            .id(1L)
+            .loginId("testLoginId")
+            .name("testName")
+            .password("testPassword").build();
 
         MockHttpSession session = new MockHttpSession();
         session.setAttribute(LOGIN_SESSION, "test");
 
         //when
         mockMvc.perform(post("/users")
-                        .session(session)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(userSaveRequest))
-                        .accept(MediaType.APPLICATION_JSON))
-                //then
-                .andDo(print()).andExpect(status().isBadRequest());
+                .session(session)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(userSaveRequest))
+                .accept(MediaType.APPLICATION_JSON))
+            //then
+            .andDo(print()).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("회원정보 변경 실패 테스트")
+    void modifyUserFail() throws Exception {
+        //given
+        User user = User.builder()
+            .id(1L)
+            .loginId("testId")
+            .name("testName")
+            .password("testPassword")
+            .phoneNumber("01012345678")
+            .build();
+
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute(LOGIN_SESSION, "test");
+
+        Mockito.when(userService.addUser(any())).thenReturn(user);
+        Mockito.when(loginInterceptor.preHandle(any(), any(), any())).thenReturn(true);
+
+
+        //when
+        mockMvc.perform(patch("/users/" + 1)
+                .session(session)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            //then
+            .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -101,11 +131,11 @@ class UserControllerTest {
     void getUserById() throws Exception {
         //given
         User user = User.builder()
-                .loginId("testId")
-                .name("testName")
-                .password("testPassword")
-                .phoneNumber("01012345678")
-                .build();
+            .loginId("testId")
+            .name("testName")
+            .password("testPassword")
+            .phoneNumber("01012345678")
+            .build();
 
         MockHttpSession session = new MockHttpSession();
         session.setAttribute(LOGIN_SESSION, "test");
@@ -115,11 +145,11 @@ class UserControllerTest {
 
         //when
         mockMvc.perform(get("/users/" + 1)
-                        .session(session)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                //then
-                .andDo(print()).andExpect(status().isOk());
+                .session(session)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            //then
+            .andDo(print()).andExpect(status().isOk());
     }
 
     @Test
@@ -127,11 +157,11 @@ class UserControllerTest {
     void getUserByLoginId() throws Exception {
         //given
         User user = User.builder()
-                .loginId("testId")
-                .name("testName")
-                .password("testPassword")
-                .phoneNumber("01012345678")
-                .build();
+            .loginId("testId")
+            .name("testName")
+            .password("testPassword")
+            .phoneNumber("01012345678")
+            .build();
 
         MockHttpSession session = new MockHttpSession();
         session.setAttribute(LOGIN_SESSION, "test");
@@ -141,21 +171,21 @@ class UserControllerTest {
 
         //when
         mockMvc.perform(get("/users/" + 1)
-                        .session(session)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                //then
-                .andDo(print()).andExpect(status().isOk());
+                .session(session)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            //then
+            .andDo(print()).andExpect(status().isOk());
     }
 
     private UserSaveRequest createUser() {
         return UserSaveRequest.builder()
-                .id(1L)
-                .loginId("testId")
-                .name("testName")
-                .password("testPassword")
-                .phoneNumber("01012345678")
-                .build();
+            .id(1L)
+            .loginId("testId")
+            .name("testName")
+            .password("testPassword")
+            .phoneNumber("01012345678")
+            .build();
     }
 }
 
