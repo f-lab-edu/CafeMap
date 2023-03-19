@@ -44,7 +44,8 @@ public class UserService {
     @Transactional
     public User modifyUser(Long userId, UserPatchRequest userPatchRequest) {
         User user = findUserById(userId);
-        user.modify(userPatchRequest.getName(), userPatchRequest.getPhoneNumber());
+        user.modify(userPatchRequest.getName(), userPatchRequest.getPhoneNumber(),
+            user.getModifiedBy());
         userMapper.updateUser(user);
         return user;
     }

@@ -33,11 +33,11 @@ class UserServiceTest {
     void addUser() {
         //given
         userService.addUser(UserSaveRequest.builder()
-                .loginId("testId")
-                .name("testName")
-                .password("testPassword")
-                .phoneNumber("01012345678")
-                .build());
+            .loginId("testId")
+            .name("testName")
+            .password("testPassword")
+            .phoneNumber("01012345678")
+            .build());
 
         //when
         User user = userService.findUser("testId");
@@ -53,17 +53,36 @@ class UserServiceTest {
     void findUser() {
         //given
         userService.addUser(UserSaveRequest.builder()
-                .loginId("testId")
-                .password("testPassword")
-                .name("testName")
-                .phoneNumber("01012345678")
-                .build());
+            .loginId("testId")
+            .password("testPassword")
+            .name("testName")
+            .phoneNumber("01012345678")
+            .build());
 
         //when
         User findUser = userService.findUser("testId");
 
         //then
         assertThat(findUser.getLoginId()).isEqualTo("testId");
+    }
+
+    @Test
+    @DisplayName("id로 회원 정보 조회 테스트")
+    void findUserById() {
+        //given
+        userService.addUser(UserSaveRequest.builder()
+            .id(1L)
+            .loginId("testId")
+            .password("testPassword")
+            .name("testName")
+            .phoneNumber("01012345678")
+            .build());
+
+        //when
+        User findUser = userService.findUserById(1L);
+
+        //then
+        assertThat(findUser.getId()).isEqualTo(1L);
     }
 
     @Test
@@ -74,22 +93,29 @@ class UserServiceTest {
     }
 
     @Test
+    @DisplayName("id로 회원 정보 조회 실패 시 예외 호출 테스트")
+    void findUserByloginIdFailed() {
+        //given, when, then
+        Assertions.assertThrows(UserNotFoundException.class, () -> userService.findUser("loginId"));
+    }
+
+    @Test
     @DisplayName("회원 정보 수정 테스트")
     void modifyUser() {
         //given
         userService.addUser(UserSaveRequest.builder()
-                .id(1L)
-                .loginId("testId")
-                .password("testPassword")
-                .name("testName")
-                .phoneNumber("01012345678")
-                .build());
+            .id(1L)
+            .loginId("testId")
+            .password("testPassword")
+            .name("testName")
+            .phoneNumber("01012345678")
+            .build());
 
         UserPatchRequest userPatchRequest = UserPatchRequest.builder()
-                .loginId("testId")
-                .name("testName2")
-                .phoneNumber("01012345679")
-                .build();
+            .loginId("testId")
+            .name("testName2")
+            .phoneNumber("01012345679")
+            .build();
 
         //when
         User modifyUser = userService.modifyUser(1L, userPatchRequest);
