@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.flab.CafeMap.domain.login.exception.DuplicatedLoginSessionException;
 import com.flab.CafeMap.domain.login.exception.LoginSessionNotFoundException;
+import com.flab.CafeMap.domain.login.exception.UnauthenticatedUserException;
 import com.flab.CafeMap.domain.login.exception.UserNotFoundException;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.service.UserService;

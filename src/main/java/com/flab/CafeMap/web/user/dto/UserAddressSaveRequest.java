@@ -14,12 +14,6 @@ import lombok.Getter;
 public class UserAddressSaveRequest {
 
     @NotNull
-    private String x;
-
-    @NotNull
-    private String y;
-
-    @NotNull
     private String streetAddress;
 
     @NotNull

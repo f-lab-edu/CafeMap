@@ -1,7 +1,10 @@
 package com.flab.CafeMap.web.user.dto;
 
 import com.flab.CafeMap.domain.user.User;
+
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,25 +23,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserSaveRequest {
 
-    @NotBlank
+    @NotNull
+    private Long id;
+
+    @NotNull
     private String loginId;
 
-    @NotBlank
+    @NotNull
     private String name;
 
-    @NotBlank
+    @NotNull
     private String password;
 
-    @NotBlank
+    @NotNull
     private String phoneNumber;
 
     public User toEntity() {
-        return User.builder()
-            .loginId(this.loginId)
-            .name(this.name)
-            .password(this.password)
-            .phoneNumber(this.phoneNumber)
-            .createdBy(this.name)
-            .build();
+        return User.builder().id(this.id).loginId(this.loginId).name(this.name).password(this.password).phoneNumber(this.phoneNumber).createdBy(this.name).build();
     }
 }

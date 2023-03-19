@@ -38,8 +38,7 @@ public class UserController {
     }
 
     @PatchMapping("/{userId}")
-    public ResponseEntity<UserPatchResponse> modifyUser(
-        @PathVariable Long userId,
+    public ResponseEntity<UserPatchResponse> modifyUser(@PathVariable Long userId,
         @RequestBody UserPatchRequest userPatchRequest) {
         User user = userService.modifyUser(userId, userPatchRequest);
         return new ResponseEntity<>(UserPatchResponse.from(user), HttpStatus.OK);

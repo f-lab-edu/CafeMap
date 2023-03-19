@@ -88,7 +88,7 @@ class UserMapperTest {
             "testCreatedBy");
         userMapper.insertUser(user1);
         User user = userMapper.selectUserById(user1.getId()).orElseThrow();
-        user.modify("testName2", "01012345679");
+        user.modify("testName2", "01012345679", user.getLoginId());
 
         //when
         int count = 0;
