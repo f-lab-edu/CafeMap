@@ -38,6 +38,10 @@ public class UserSaveRequest {
     @NotNull
     private String phoneNumber;
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public User toEntity() {
         return User.builder().id(this.id).loginId(this.loginId).name(this.name).password(this.password).phoneNumber(this.phoneNumber).createdBy(this.name).build();
     }
