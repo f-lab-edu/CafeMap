@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.flab.CafeMap.domain.login.exception.DuplicatedLoginSessionException;
+import com.flab.CafeMap.domain.login.exception.InvalidPasswordException;
 import com.flab.CafeMap.domain.login.exception.LoginSessionNotFoundException;
 import com.flab.CafeMap.domain.user.exception.UserNotFoundException;
 import com.flab.CafeMap.domain.user.User;
@@ -86,6 +87,22 @@ class LoginServiceTest {
         assertThatThrownBy(() -> {
             loginService.login(loginRequest, session);
         }).isInstanceOf(UserNotFoundException.class);
+    }
+
+    @Test
+    @DisplayName("비밀번호 틀릴 때 예외 호출되는지 확인")
+    void InvalidPasswordExceptionTest() {
+        //given
+        MockHttpSession session = new MockHttpSession();
+        UserSaveRequest userSaveRequest = createUser();
+        userService.addUser(userSaveRequest);
+
+        LoginRequest loginRequest = new LoginRequest(userSaveRequest.getLoginId(), "testPassword2");
+
+        //when, then
+        assertThatThrownBy(() -> {
+            loginService.login(loginRequest, session);
+        }).isInstanceOf(InvalidPasswordException.class);
     }
 
     @Test
