@@ -2,7 +2,8 @@ package com.flab.CafeMap.domain.user.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.flab.CafeMap.domain.login.exception.UserNotFoundException;
+import com.flab.CafeMap.domain.user.exception.DuplicatedUserIdException;
+import com.flab.CafeMap.domain.user.exception.UserNotFoundException;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.web.user.dto.UserPatchRequest;
 import com.flab.CafeMap.web.user.dto.UserSaveRequest;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +29,9 @@ class UserServiceTest {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Test
     @DisplayName("회원가입 테스트")
@@ -97,6 +102,27 @@ class UserServiceTest {
     void findUserByloginIdFailed() {
         //given, when, then
         Assertions.assertThrows(UserNotFoundException.class, () -> userService.findUser("loginId"));
+    }
+
+    @Test
+    @DisplayName("loginId 중복 테스트")
+    void duplicatedUserIdFailed() {
+        //given
+        userService.addUser(UserSaveRequest.builder()
+            .loginId("testId")
+            .password("testPassword")
+            .name("testName")
+            .phoneNumber("01012345678")
+            .build());
+
+        //when, then
+        Assertions.assertThrows(DuplicatedUserIdException.class, () -> userService.addUser(
+            UserSaveRequest.builder()
+                .loginId("testId")
+                .password("testPassword2")
+                .name("testName2")
+                .password("01012345679")
+                .build()));
     }
 
     @Test

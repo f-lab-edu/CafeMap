@@ -1,11 +1,13 @@
 package com.flab.CafeMap.domain.user.service;
 
-import com.flab.CafeMap.domain.login.exception.UserNotFoundException;
+import com.flab.CafeMap.domain.user.exception.UserNotFoundException;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.dao.UserMapper;
+import com.flab.CafeMap.domain.user.exception.DuplicatedUserIdException;
 import com.flab.CafeMap.web.user.dto.UserPatchRequest;
 import com.flab.CafeMap.web.user.dto.UserSaveRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,8 +22,13 @@ public class UserService {
 
     private final UserMapper userMapper;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Transactional
     public User addUser(UserSaveRequest userSaveRequest) {
+        userMapper.selectUserByLoginId(userSaveRequest.getLoginId()).ifPresent(user -> {
+            throw new DuplicatedUserIdException();});
+        userSaveRequest.setPassword(passwordEncoder.encode(userSaveRequest.getPassword()));
         User user = userSaveRequest.toEntity();
         userMapper.insertUser(user);
         return user;

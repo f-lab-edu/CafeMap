@@ -1,6 +1,6 @@
 package com.flab.CafeMap.domain.user.service;
 
-import com.flab.CafeMap.domain.login.exception.UserNotFoundException;
+import com.flab.CafeMap.domain.user.exception.UserNotFoundException;
 import com.flab.CafeMap.domain.user.UserAddress;
 import com.flab.CafeMap.domain.user.dao.UserAddressMapper;
 import com.flab.CafeMap.domain.user.dao.UserMapper;
