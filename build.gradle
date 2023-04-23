@@ -55,8 +55,7 @@ jacocoTestCoverageVerification {
                     "com/flab/CafeMap/**Application.class",
                     "com/flab/CafeMap/web/api/KakaoMapApi.class",
                     "com/flab/CafeMap/web/user/dto/**",
-                    "com/flab/CafeMap/domain/user/service/UserAddressService.class",
-                    "com/flab/CafeMap/domain/login/exception/UnauthenticatedUserException.class"
+                    "com/flab/CafeMap/domain/user/service/UserAddressService.class"
             ])
         }))
     }
@@ -94,7 +93,8 @@ dependencies {
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-crypto'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
     compileOnly 'org.projectlombok:lombok'
     testRuntimeOnly 'com.h2database:h2'
     implementation 'mysql:mysql-connector-java'
