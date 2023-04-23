@@ -5,8 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.flab.CafeMap.domain.login.exception.DuplicatedLoginSessionException;
 import com.flab.CafeMap.domain.login.exception.LoginSessionNotFoundException;
-import com.flab.CafeMap.domain.login.exception.UnauthenticatedUserException;
-import com.flab.CafeMap.domain.login.exception.UserNotFoundException;
+import com.flab.CafeMap.domain.user.exception.UserNotFoundException;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.service.UserService;
 import com.flab.CafeMap.web.login.dto.LoginRequest;
@@ -45,7 +44,7 @@ class LoginServiceTest {
 
         MockHttpSession session = new MockHttpSession();
         LoginRequest loginRequest = new LoginRequest(userSaveRequest.getLoginId(),
-            "testLoginPassword");
+            "testPassword");
 
         //when
         User user = loginService.login(loginRequest, session);
@@ -110,15 +109,37 @@ class LoginServiceTest {
     }
 
     @Test
-    @DisplayName("로그아웃 시 세션이 존재하지 않는 경우 LoginSessionNotFoundException 예외 호출 테스트")
+    @DisplayName("로그아웃 시 세션이 존재하지 않는 경우 예외 호출 테스트")
     void logoutFailed() {
         //given
+        UserSaveRequest userSaveRequest = createUser();
+        userService.addUser(userSaveRequest);
+
         MockHttpSession session = new MockHttpSession();
 
         //when, then
         assertThatThrownBy(() -> {
             loginService.logout(session);
         }).isInstanceOf(LoginSessionNotFoundException.class);
+    }
+
+    @Test
+    @DisplayName("이미 로그인 중일 때 DuplicatedLoginSessionException 예외 호출 테스트")
+    void DuplicatedSessionExceptionTest() {
+        //given
+        UserSaveRequest userSaveRequest = createUser();
+        userService.addUser(userSaveRequest);
+
+        MockHttpSession session = new MockHttpSession();
+        LoginRequest loginRequest = new LoginRequest(userSaveRequest.getLoginId(), "testPassword");
+
+        //when
+        loginService.login(loginRequest, session);
+
+        //then
+        assertThatThrownBy(() -> {
+            loginService.login(loginRequest, session);
+        }).isInstanceOf(DuplicatedLoginSessionException.class);
     }
 
     private UserSaveRequest createUser() {
