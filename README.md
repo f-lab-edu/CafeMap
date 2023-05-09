@@ -5,6 +5,7 @@
 
 - Java 17
 - Spring Boot 2.7.3
+- JUnit5
 - Gradle
 - MyBatis
 - MySQL
