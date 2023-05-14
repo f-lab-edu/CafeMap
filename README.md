@@ -25,3 +25,8 @@ https://dbdiagram.io/d/6289f426f040f104c171c245
 
 ![img](https://github.com/dilmah0203/TIL/blob/main/Image/ERdiagram.png)
 
+## 개발 이슈와 해결 과정
+
+- [GitHub Actions를 이용한 CI 설정](https://github.com/dilmah0203/TIL/blob/main/GitHub%20Actions.md)
+- [인증 기능은 어떻게 구현할 수 있을까?](https://dilmah0203.github.io/authentication/)
+- [다중 서버 환경에서 session 불일치 문제와 해결 방법](https://dilmah0203.github.io/How-to-manage-sessions-in-a-multi-server-environment/)
