@@ -97,6 +97,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.security:spring-security-crypto'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'it.ozimov:embedded-redis:0.7.2'
     implementation 'io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64'
     compileOnly 'org.projectlombok:lombok'
     testRuntimeOnly 'com.h2database:h2'
