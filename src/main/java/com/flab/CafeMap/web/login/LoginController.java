@@ -27,7 +27,6 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Validated @RequestBody LoginRequest loginRequest,
         HttpSession session) {
-
         User user = loginService.login(loginRequest, session);
         return new ResponseEntity<>(LoginResponse.from(user), HttpStatus.OK);
     }
