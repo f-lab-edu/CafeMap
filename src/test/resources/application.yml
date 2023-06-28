@@ -8,6 +8,13 @@ spring:
   redis:
     host: localhost
     port: 6379
+    password:
+  data:
+    redis:
+      repositories:
+        enabled: false
+  session:
+    store-type: none
 
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
