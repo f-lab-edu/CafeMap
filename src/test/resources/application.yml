@@ -5,6 +5,10 @@ spring:
     username: mysql_dba
     password: cafe_map3*
 
+  redis:
+    host: localhost
+    port: 6379
+
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   configuration:
