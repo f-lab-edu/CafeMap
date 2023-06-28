@@ -5,7 +5,6 @@ import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.web.login.dto.LoginRequest;
 import com.flab.CafeMap.web.login.dto.LoginResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,14 +26,14 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Validated @RequestBody LoginRequest loginRequest,
-        @NotNull HttpSession session) {
+        HttpSession session) {
 
         User user = loginService.login(loginRequest, session);
         return new ResponseEntity<>(LoginResponse.from(user), HttpStatus.OK);
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(@NotNull HttpSession session) {
+    public ResponseEntity<Void> logout(HttpSession session) {
         loginService.logout(session);
         return new ResponseEntity<>(HttpStatus.OK);
     }
