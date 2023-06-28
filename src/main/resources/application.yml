@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/cafe_map?serverTimezone=Asia/Seoul
@@ -14,6 +12,8 @@ spring:
     host: localhost
     port: 6379
     password:
+  profiles:
+    active: local
 
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
