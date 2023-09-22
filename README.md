@@ -23,7 +23,7 @@
 
 https://dbdiagram.io/d/6289f426f040f104c171c245
 
-![img](https://github.com/dilmah0203/TIL/blob/main/Image/ERdiagram.png)
+![img](https://github.com/dilmah0203/TIL/blob/main/Image/Copy%20of%20CafeMap.png)
 
 ## 개발 이슈와 해결 과정
 
