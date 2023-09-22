@@ -5,6 +5,7 @@
 
 - Java 17
 - Spring Boot 2.7.3
+- IntelliJ
 - JUnit5
 - Gradle
 - MyBatis
@@ -19,11 +20,16 @@
 - [Git Branch 전략](https://github.com/f-lab-edu/CafeMap/wiki/Convention#git-branch-%EC%A0%84%EB%9E%B5)
 - 테스트 커버리지 : 70% 이상  ![Coverage](.github/badges/jacoco.svg)
 
+## 주요 기능
+
+- [기능 정리](https://github.com/f-lab-edu/CafeMap/wiki)
+- [Use Case](https://github.com/f-lab-edu/CafeMap/wiki/Use-Case)
+
 ## ERD
 
-https://dbdiagram.io/d/6289f426f040f104c171c245
-
 ![img](https://github.com/dilmah0203/TIL/blob/main/Image/Copy%20of%20CafeMap.png)
+
+https://dbdiagram.io/d/6289f426f040f104c171c245
 
 ## 개발 이슈와 해결 과정
 
