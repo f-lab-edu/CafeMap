@@ -42,7 +42,7 @@ public class KakaoMapApi {
             .queryParam("category_group_code", kakaoMapApiRequest.getCategory_group_code())
             .queryParam("x", kakaoMapApiRequest.getX())
             .queryParam("y", kakaoMapApiRequest.getY())
-            .queryParam("radius100")
+            .queryParam("radius", 1000)
             .build()
             .toUri();
 

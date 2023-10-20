@@ -25,7 +25,7 @@ class KakaoMapApiTest {
     KakaoMapApi kakaoMapApi;
 
     @Test
-    @DisplayName("카테고리와 좌표 정보로 주소 받아오는 API 테스트")
+    @DisplayName("카테고리와 좌표 정보로 카페 정보를 받아오는 API 테스트")
     void getAddressByCoordinates() {
 
         //given
