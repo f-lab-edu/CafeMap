@@ -2,6 +2,79 @@ plugins {
     id 'org.springframework.boot' version '2.7.3'
     id 'io.spring.dependency-management' version '1.0.13.RELEASE'
     id 'java'
+    id 'jacoco'
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+}
+
+//테스트 시 JUnit이 함께 동작할 수 있게 함.
+test {
+    useJUnitPlatform()
+
+    /**
+     * test 작업이 끝나고 jacocoTestReport를 실행
+     */
+    finalizedBy 'jacocoTestReport'
+}
+
+//테스트 결과를 받는 부분을 설정
+jacocoTestReport {
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "com/flab/CafeMap/**Application.class",
+                    "com/flab/CafeMap/web/api/KakaoMapApi.class",
+                    "com/flab/CafeMap/web/user/dto/**",
+                    "com/flab/CafeMap/web/config/EmbeddedRedisConfig.class",
+                    "com/flab/CafeMap/domain/user/service/UserAddressService.class",
+                    "com/flab/CafeMap/domain/login/exception/UnauthenticatedUserException.class"
+            ])
+        }))
+    }
+
+    reports {
+        html.enabled true
+        xml.enabled true
+        csv.enabled true
+    }
+
+    /**
+     * jacocoTestReport 작업이 끝나고 jacocoTestCoverageVerification task 실행
+     */
+    finalizedBy 'jacocoTestCoverageVerification'
+}
+
+//커버리지 기준 설정
+jacocoTestCoverageVerification {
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "com/flab/CafeMap/**Application.class",
+                    "com/flab/CafeMap/web/api/KakaoMapApi.class",
+                    "com/flab/CafeMap/web/user/dto/**",
+                    "com/flab/CafeMap/web/config/EmbeddedRedisConfig.class",
+                    "com/flab/CafeMap/domain/user/service/UserAddressService.class",
+                    "com/flab/CafeMap/domain/login/exception/UnauthenticatedUserException.class"
+            ])
+        }))
+    }
+
+    violationRules {
+        rule {
+            enabled = true
+            element = 'CLASS'
+
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.70
+            }
+        }
+    }
 }
 
 group = 'com.flab'
@@ -22,6 +95,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.security:spring-security-crypto'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'it.ozimov:embedded-redis:0.7.2'
+    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64'
     compileOnly 'org.projectlombok:lombok'
     testRuntimeOnly 'com.h2database:h2'
     implementation 'mysql:mysql-connector-java'

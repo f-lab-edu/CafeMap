@@ -5,7 +5,20 @@ spring:
     username: mysql_dba
     password: cafe_map3*
 
+  redis:
+    host: localhost
+    port: 6379
+    password:
+  data:
+    redis:
+      repositories:
+        enabled: false
+  session:
+    store-type: none
+
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
+
+KAKAO_SECRET: e312c50fe99178bb204d587d31c49bbf
