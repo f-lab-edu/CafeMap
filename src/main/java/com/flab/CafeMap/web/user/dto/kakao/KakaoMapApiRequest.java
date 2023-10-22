@@ -1,5 +1,6 @@
 package com.flab.CafeMap.web.user.dto.kakao;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -10,9 +11,9 @@ import lombok.Getter;
 
 @Getter
 @Builder
+@AllArgsConstructor
 public class KakaoMapApiRequest {
 
-    private String category_group_code;
     private String x;
     private String y;
 }

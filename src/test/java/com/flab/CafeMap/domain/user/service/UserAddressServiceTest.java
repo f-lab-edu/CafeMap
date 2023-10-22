@@ -46,7 +46,7 @@ class UserAddressServiceTest {
         User user = userService.addUser(userSaveRequest);
 
         //when
-        UserAddress userAddress = userAddressService.addUserAddress(1L, userAddressSaveRequest,kakaoMapApiRequest);
+        UserAddress userAddress = userAddressService.addUserAddress(1L, kakaoMapApiRequest, userAddressSaveRequest);
 
         //then
         assertThat(userAddress.getLatitude()).isNotNull();

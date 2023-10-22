@@ -18,4 +18,7 @@ public class Meta {
 
     @JsonProperty("is_end")
     private Boolean isEnd;
+
+    @JsonProperty("same_name")
+    private SameName sameName;
 }
