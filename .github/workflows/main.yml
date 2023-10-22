@@ -26,14 +26,13 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: Set Kakao Secret in Environment Variable
+        run: echo "KAKAO_SECRET=${{ secrets.KAKAO_SECRET }}" >> $GITHUB_ENV
+        
       - name: Build with Gradle
-        env:
-          KAKAO_SECRET: ${{ secrets.KAKAO_SECRET }}
         run: ./gradlew build
 
       - name: Run Tests
-        env:
-          KAKAO_SECRET: ${{ secrets.KAKAO_SECRET }}
         run: ./gradlew test
 
       - name: Generate JaCoCo Badge
