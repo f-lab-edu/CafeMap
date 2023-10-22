@@ -27,7 +27,7 @@
 
 ## ERD
 
-![img](https://github.com/dilmah0203/TIL/blob/main/Image/Copy%20of%20CafeMap.png)
+![img](https://github.com/dilmah0203/TIL/blob/main/Image/ERdiagram.png)
 
 https://dbdiagram.io/d/6289f426f040f104c171c245
 
