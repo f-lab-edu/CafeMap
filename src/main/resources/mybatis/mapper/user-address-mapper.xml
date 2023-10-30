@@ -6,7 +6,8 @@
 
   <insert id="insertUserAddress" useGeneratedKeys="true" keyProperty="id"
     parameterType="com.flab.CafeMap.domain.user.UserAddress">
-    INSERT INTO user_address(login_id,
+    INSERT INTO user_address(id,
+                             login_id,
                              street_address,
                              detail_address,
                              latitude,
@@ -15,7 +16,8 @@
                              modified_at,
                              created_by,
                              modified_by)
-    VALUES (#{loginId},
+    VALUES (#{id},
+            #{loginId},
             #{streetAddress},
             #{detailAddress},
             #{latitude},

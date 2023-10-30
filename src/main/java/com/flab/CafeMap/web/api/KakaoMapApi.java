@@ -38,7 +38,7 @@ public class KakaoMapApi {
     public static final String kakaoURL = "/v2/local/search/category.json";
 
     public ResponseEntity<KakaoMapApiResponse> getAddressByCoordinates(
-            KakaoMapApiRequest kakaoMapApiRequest) {
+        KakaoMapApiRequest kakaoMapApiRequest) {
 
         URI url = UriComponentsBuilder.fromHttpUrl(kakaoHost + kakaoURL)
                 .queryParam("category_group_code", "CE7")
