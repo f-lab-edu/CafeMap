@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flab.CafeMap.domain.cafe.Cafe;
 import com.flab.CafeMap.domain.cafe.service.CafeService;
 import com.flab.CafeMap.web.cafe.dto.CafeSaveRequest;
-import com.flab.CafeMap.web.cafe.dto.CafeSaveResponse;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -26,7 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
  * @ActiveProfiles : 스프링 컨테이터 실행 시 실행 환경을 지정해주는 애노테이션으로, 테스트 시 특정 빈을 로드
  */
 
-@WebMvcTest(CafeController.class)
+@WebMvcTest
 @ActiveProfiles("test")
 @Disabled
 class CafeControllerTest {
@@ -42,32 +41,35 @@ class CafeControllerTest {
     @Test
     @DisplayName("카페 등록 성공 테스트")
     void addCafe() throws Exception {
-
         //given
         CafeSaveRequest cafeSaveRequest = CafeSaveRequest.builder()
             .loginId("loginId")
             .cafeId("cafeId")
-            .longitude(127.05897078335246)
-            .latitude(37.506051888130386)
+            .streetAddress("서울시 강남구")
+            .detailAddress("논현동 207")
+            .name("testName")
+            .latitude(37.513863998587)
+            .longitude(127.0312783056)
+            .createdBy("user1")
             .build();
 
         Cafe cafe = Cafe.builder()
             .id(1L)
+            .cafeId(cafeSaveRequest.getCafeId())
             .name(cafeSaveRequest.getName())
             .latitude(cafeSaveRequest.getLatitude())
             .longitude(cafeSaveRequest.getLongitude())
             .createdAt(LocalDateTime.now())
             .build();
 
-        Mockito.when(cafeService.addCafe(Mockito.any())).thenReturn(
-            CafeSaveResponse.from(cafe).getCafe());
+        Mockito.when(cafeService.addCafe(Mockito.any())).thenReturn(cafe);
 
         //when
         mockMvc.perform(post("/cafes")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(cafeSaveRequest))
-            .accept(MediaType.APPLICATION_JSON))
-        //then
-            .andDo(print()).andExpect(status().isOk());
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(cafeSaveRequest))
+                .accept(MediaType.APPLICATION_JSON))
+            //then
+            .andDo(print()).andExpect(status().isCreated());
     }
 }

@@ -6,7 +6,6 @@ import com.flab.CafeMap.web.cafe.dto.CafeSaveResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +25,7 @@ public class CafeController {
     private final CafeService cafeService;
 
     @PostMapping
-    public ResponseEntity<CafeSaveResponse> addCafe(@PathVariable Long cafeId,
-        @RequestBody CafeSaveRequest cafeSaveRequest) {
+    public ResponseEntity<CafeSaveResponse> addCafe(@RequestBody CafeSaveRequest cafeSaveRequest) {
         cafeService.addCafe(cafeSaveRequest);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
