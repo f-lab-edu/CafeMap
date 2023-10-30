@@ -1,5 +1,6 @@
 package com.flab.CafeMap.web.cafe;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -7,7 +8,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flab.CafeMap.domain.cafe.Cafe;
 import com.flab.CafeMap.domain.cafe.service.CafeService;
+import com.flab.CafeMap.web.api.KakaoMapApi;
 import com.flab.CafeMap.web.cafe.dto.CafeSaveRequest;
+import com.flab.CafeMap.web.cafe.dto.CafeSaveResponse;
+import com.flab.CafeMap.web.user.dto.kakao.KakaoMapApiRequest;
+import com.flab.CafeMap.web.user.dto.kakao.KakaoMapApiResponse;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -34,6 +40,9 @@ class CafeControllerTest {
     MockMvc mockMvc;
 
     @MockBean
+    KakaoMapApi kakaoMapApi;
+
+    @MockBean
     CafeService cafeService;
 
     ObjectMapper objectMapper = new ObjectMapper();
@@ -45,31 +54,30 @@ class CafeControllerTest {
         CafeSaveRequest cafeSaveRequest = CafeSaveRequest.builder()
             .loginId("loginId")
             .cafeId("cafeId")
-            .streetAddress("서울시 강남구")
-            .detailAddress("논현동 207")
-            .name("testName")
-            .latitude(37.513863998587)
-            .longitude(127.0312783056)
-            .createdBy("user1")
+            .longitude(127.05897078335246)
+            .latitude(37.506051888130386)
             .build();
 
         Cafe cafe = Cafe.builder()
             .id(1L)
-            .cafeId(cafeSaveRequest.getCafeId())
-            .name(cafeSaveRequest.getName())
+            .name("testCafe")
             .latitude(cafeSaveRequest.getLatitude())
             .longitude(cafeSaveRequest.getLongitude())
             .createdAt(LocalDateTime.now())
             .build();
 
+        CafeSaveResponse cafeSaveResponse = CafeSaveResponse.from(cafe);
+
+        CafeService cafeService = Mockito.mock(CafeService.class);
         Mockito.when(cafeService.addCafe(Mockito.any())).thenReturn(cafe);
 
         //when
         mockMvc.perform(post("/cafes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(cafeSaveRequest))
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON)
+            )
             //then
-            .andDo(print()).andExpect(status().isCreated());
+            .andExpect(status().isOk());
     }
 }
