@@ -30,10 +30,14 @@ class CafeServiceTest {
     void addCafe() {
         //given, when
         Cafe cafe = cafeService.addCafe(CafeSaveRequest.builder()
+            .loginId("loginId")
             .cafeId("testId")
+            .streetAddress("서울시 강남구")
+            .detailAddress("논현동 207")
             .name("testName")
             .latitude(37.513863998587)
             .longitude(127.0312783056)
+            .createdBy("user1")
             .build());
 
         //then

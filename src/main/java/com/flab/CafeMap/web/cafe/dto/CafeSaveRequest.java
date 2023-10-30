@@ -21,16 +21,28 @@ import lombok.NoArgsConstructor;
 public class CafeSaveRequest {
 
     @NotNull
+    private String loginId;
+
+    @NotNull
     private String cafeId;
 
     @NotNull
     private String name;
 
     @NotNull
+    private String streetAddress;
+
+    @NotNull
+    private String detailAddress;
+
+    @NotNull
     private Double latitude;
 
     @NotNull
     private Double longitude;
+
+    @NotNull
+    private String createdBy;
 
     public Cafe toEntity() {
         return Cafe.builder()
