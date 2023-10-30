@@ -25,16 +25,18 @@ class KakaoMapApiTest {
     KakaoMapApi kakaoMapApi;
 
     @Test
-    @DisplayName("카테고리와 좌표 정보로 주소 받아오는 API 테스트")
+    @DisplayName("카테고리와 좌표 정보로 카페 정보를 받아오는 API 테스트")
     void getAddressByCoordinates() {
 
+        String x = "127.423084873712";
+        String y = "37.0789561558879";
+
+        KakaoMapApiRequest request = KakaoMapApiRequest.builder()
+                .x(x)
+                .y(y)
+                .build();
         //given
-        ResponseEntity<KakaoMapApiResponse> response = kakaoMapApi.getAddressByCoordinates(
-            KakaoMapApiRequest.builder()
-                .category_group_code("CE7")
-                .x("127.423084873712")
-                .y("37.0789561558879")
-                .build());
+        ResponseEntity<KakaoMapApiResponse> response = kakaoMapApi.getAddressByCoordinates(request);
 
         //when
         KakaoMapApiResponse result = response.getBody();

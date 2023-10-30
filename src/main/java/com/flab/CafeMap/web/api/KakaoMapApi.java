@@ -2,7 +2,9 @@ package com.flab.CafeMap.web.api;
 
 import com.flab.CafeMap.web.user.dto.kakao.KakaoMapApiRequest;
 import com.flab.CafeMap.web.user.dto.kakao.KakaoMapApiResponse;
+
 import java.net.URI;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,15 +38,15 @@ public class KakaoMapApi {
     public static final String kakaoURL = "/v2/local/search/category.json";
 
     public ResponseEntity<KakaoMapApiResponse> getAddressByCoordinates(
-        KakaoMapApiRequest kakaoMapApiRequest) {
+            KakaoMapApiRequest kakaoMapApiRequest) {
 
         URI url = UriComponentsBuilder.fromHttpUrl(kakaoHost + kakaoURL)
-            .queryParam("category_group_code", kakaoMapApiRequest.getCategory_group_code())
-            .queryParam("x", kakaoMapApiRequest.getX())
-            .queryParam("y", kakaoMapApiRequest.getY())
-            .queryParam("radius100")
-            .build()
-            .toUri();
+                .queryParam("category_group_code", "CE7")
+                .queryParam("x", kakaoMapApiRequest.getX())
+                .queryParam("y", kakaoMapApiRequest.getY())
+                .queryParam("radius", 1000) // 1km
+                .build()
+                .toUri();
 
         log.info("url : {}", url);
 
@@ -54,13 +56,13 @@ public class KakaoMapApi {
         httpHeaders.set("Authorization", kakaoHeader + kakaoSecretKey);
 
         return webClient
-            .get()
-            .uri(url)
-            .accept(MediaType.APPLICATION_JSON)
-            .header(HttpHeaders.AUTHORIZATION, kakaoHeader + kakaoSecretKey)
-            .retrieve()
-            .toEntity(KakaoMapApiResponse.class)
-            .block();
+                .get()
+                .uri(url)
+                .accept(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, kakaoHeader + kakaoSecretKey)
+                .retrieve()
+                .toEntity(KakaoMapApiResponse.class)
+                .block();
     }
 }
 

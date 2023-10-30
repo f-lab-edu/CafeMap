@@ -28,10 +28,10 @@ jobs:
 
       - name: Set Kakao Secret in Environment Variable
         run: echo "KAKAO_SECRET=${{ secrets.KAKAO_SECRET }}" >> $GITHUB_ENV
-
+        
       - name: Build with Gradle
         run: ./gradlew build
-        
+
       - name: Run Tests
         run: ./gradlew test
 
