@@ -29,7 +29,7 @@ class UserAddressService {
     private final KakaoMapApi kakaoMapApi;
 
     @Transactional
-    public UserAddress addUserAddress(Long userId, UserAddressSaveRequest userAddressSaveRequest, KakaoMapApiRequest kakaoMapApiRequest) {
+    public UserAddress addUserAddress(Long userId, KakaoMapApiRequest kakaoMapApiRequest, UserAddressSaveRequest userAddressSaveRequest) {
 
         userService.findUserById(userId);
 
