@@ -28,7 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @ActiveProfiles("test")
 @Transactional
-@Disabled
 class ReservationServiceTest {
 
     @Autowired
