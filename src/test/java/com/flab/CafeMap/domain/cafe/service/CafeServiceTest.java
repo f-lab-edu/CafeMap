@@ -26,7 +26,7 @@ class CafeServiceTest {
     private CafeService cafeService;
 
     @Test
-    @DisplayName("카페 insert 테스트")
+    @DisplayName("카페 등록 테스트")
     void addCafe() {
         //given, when
         Cafe cafe = cafeService.addCafe(CafeSaveRequest.builder()
