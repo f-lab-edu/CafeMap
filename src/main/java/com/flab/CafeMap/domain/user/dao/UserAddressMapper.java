@@ -17,6 +17,4 @@ public interface UserAddressMapper {
     Optional<UserAddress> selectUserAddressByUserId(Long Id);
 
     Optional<UserAddress> selectUserAddressByLoginId(String loginId);
-
-    Optional<User> selectUserAddressByUserId(Long userId);
 }

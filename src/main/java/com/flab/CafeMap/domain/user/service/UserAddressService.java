@@ -62,8 +62,8 @@ public class UserAddressService {
     }
 
     @Transactional
-    public User findUserAddressByUserId(Long userId) {
-        return userAddressMapper.selectUserAddressByUserId(userId)
+    public UserAddress findUserAddressByUserLoginId(String userId) {
+        return userAddressMapper.selectUserAddressByLoginId(userId)
             .orElseThrow(() -> new UserNotFoundException());
     }
 }

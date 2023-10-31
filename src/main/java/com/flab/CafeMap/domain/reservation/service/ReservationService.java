@@ -6,11 +6,9 @@ import com.flab.CafeMap.domain.reservation.Reservation;
 import com.flab.CafeMap.domain.reservation.ReservationStatus;
 import com.flab.CafeMap.domain.reservation.dao.ReservationMapper;
 import com.flab.CafeMap.domain.reservation.exception.CafeNotFoundException;
+import com.flab.CafeMap.domain.reservation.exception.UserIdNotFoundException;
 import com.flab.CafeMap.domain.user.User;
-import com.flab.CafeMap.domain.user.UserAddress;
 import com.flab.CafeMap.domain.user.dao.UserMapper;
-import com.flab.CafeMap.domain.user.exception.UserNotFoundException;
-import com.flab.CafeMap.domain.user.service.UserAddressService;
 import com.flab.CafeMap.web.reservation.dto.ReservationSaveRequest;
 import com.flab.CafeMap.web.reservation.dto.ReservationSaveResponse;
 import java.time.LocalDateTime;
@@ -27,9 +25,9 @@ public class ReservationService {
     private final CafeMapper cafeMapper;
 
     @Transactional
-    public ReservationSaveResponse addReservation(ReservationSaveRequest reservationSaveRequest, Long userId) {
-        User user = userMapper.selectUserById(userId)
-            .orElseThrow(() -> new UserNotFoundException());
+    public ReservationSaveResponse addReservation(ReservationSaveRequest reservationSaveRequest, String loginId) {
+        User user = userMapper.selectUserByLoginId(loginId)
+            .orElseThrow(() -> new UserIdNotFoundException());
 
         Long cafeId = reservationSaveRequest.getCafeId();
         Cafe cafe = cafeMapper.selectCafeById(cafeId)

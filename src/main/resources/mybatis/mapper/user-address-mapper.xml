@@ -28,6 +28,17 @@
             #{modifiedBy})
   </insert>
 
+  <select id="selectUserAddressByUserId" resultType="com.flab.CafeMap.domain.user.UserAddress">
+    SELECT id,
+           login_id,
+           street_address,
+           detail_address,
+           latitude,
+           longitude
+    FROM user_address
+    WHERE id = #{Id}
+  </select>
+
   <select id="selectUserAddressByLoginId" resultType="com.flab.CafeMap.domain.user.UserAddress">
     SELECT id,
            login_id,

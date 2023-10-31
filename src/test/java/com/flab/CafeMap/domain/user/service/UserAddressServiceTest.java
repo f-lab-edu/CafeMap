@@ -62,10 +62,10 @@ class UserAddressServiceTest {
     @Test
     @DisplayName("회원 주소를 찾을 수 없는 경우 UserAddressNotFoundException 발생")
     void findUserAddressByUserIdNotFound() {
-        Long userId = 1L;
+        String loginId = "loginId";
 
         assertThrows(UserNotFoundException.class, () -> {
-            userAddressService.findUserAddressByUserId(userId);
+            userAddressService.findUserAddressByUserLoginId(loginId);
         });
     }
 

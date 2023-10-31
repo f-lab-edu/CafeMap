@@ -85,7 +85,7 @@ class ReservationServiceTest {
 
         //then
         assertThrows(CafeNotFoundException.class, () -> {
-            reservationService.addReservation(reservationSaveRequest, user.getId());
+            reservationService.addReservation(reservationSaveRequest, user.getLoginId());
         });
     }
 }
