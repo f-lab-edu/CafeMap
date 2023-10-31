@@ -5,7 +5,6 @@ import com.flab.CafeMap.domain.cafe.dao.CafeMapper;
 import com.flab.CafeMap.domain.user.UserAddress;
 import com.flab.CafeMap.domain.user.dao.UserAddressMapper;
 import com.flab.CafeMap.web.cafe.dto.CafeSaveRequest;
-import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
