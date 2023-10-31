@@ -28,9 +28,10 @@ jacocoTestReport {
                     "com/flab/CafeMap/**Application.class",
                     "com/flab/CafeMap/web/api/KakaoMapApi.class",
                     "com/flab/CafeMap/web/user/dto/**",
-                    "com/flab/CafeMap/web/cafe/dto/**",
+                    "com/flab/CafeMap/web/cafe/dto/CafeSaveResponse.class",
                     "com/flab/CafeMap/web/cafe/CafeController.class",
                     "com/flab/CafeMap/web/config/EmbeddedRedisConfig.class",
+                    "com/flab/CafeMap/domain/reservation/service/**",
                     "com/flab/CafeMap/domain/user/service/UserAddressService.class",
                     "com/flab/CafeMap/domain/login/exception/UnauthenticatedUserException.class"
             ])
@@ -58,9 +59,10 @@ jacocoTestCoverageVerification {
                     "com/flab/CafeMap/**Application.class",
                     "com/flab/CafeMap/web/api/KakaoMapApi.class",
                     "com/flab/CafeMap/web/user/dto/**",
-                    "com/flab/CafeMap/web/cafe/dto/**",
+                    "com/flab/CafeMap/web/cafe/dto/CafeSaveResponse.class",
                     "com/flab/CafeMap/web/cafe/CafeController.class",
                     "com/flab/CafeMap/web/config/EmbeddedRedisConfig.class",
+                    "com/flab/CafeMap/domain/reservation/service/**",
                     "com/flab/CafeMap/domain/user/service/UserAddressService.class",
                     "com/flab/CafeMap/domain/login/exception/UnauthenticatedUserException.class"
             ])

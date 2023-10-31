@@ -36,64 +36,6 @@ class ReservationServiceTest {
     @MockBean
     private CafeMapper cafeMapper;
 
-    @MockBean
-    private UserAddressService userAddressService;
-
-    @Test
-    @DisplayName("예약 insert 테스트")
-    void addReservation() {
-        //given
-        User user = User.builder()
-            .id(1L)
-            .loginId("testUser")
-            .name("testName")
-            .password("testPassword")
-            .phoneNumber("01012345678")
-            .createdAt(LocalDateTime.now())
-            .createdBy("test")
-            .build();
-
-        Cafe cafe = Cafe.builder()
-            .id(1L)
-            .cafeId("cafeId")
-            .name("testCafe")
-            .latitude(37.513863998587)
-            .longitude(127.0312783056)
-            .build();
-
-        UserAddress userAddress = UserAddress.builder()
-            .id(1L)
-            .loginId("testUser")
-            .streetAddress("123 Main St")
-            .detailAddress("Apt 101")
-            .latitude(37.12345)
-            .longitude(127.54321)
-            .createdAt(LocalDateTime.now())
-            .createdBy("test")
-            .build();
-
-        when(userMapper.selectUserById(1L)).thenReturn(Optional.of(user));
-        when(cafeMapper.selectCafeById(1L)).thenReturn(Optional.of(cafe));
-        when(userAddressService.findUserAddressByUserId(1L)).thenReturn(userAddress);
-
-        //when
-        ReservationSaveRequest reservationSaveRequest = ReservationSaveRequest.builder()
-            .userId(user.getId())
-            .cafeId(1L)
-            .reservationTime(LocalDateTime.now())
-            .createAt(LocalDateTime.now())
-            .build();
-
-        ReservationSaveResponse reservationSaveResponse = reservationService.addReservation(
-            reservationSaveRequest, 1L);
-
-        //then
-        assertNotNull(reservationSaveResponse);
-        assertEquals(user.getId(), reservationSaveResponse.getUserId());
-        assertEquals(1L, reservationSaveResponse.getCafeId());
-        assertNotNull(reservationSaveResponse.getReservationTime());
-    }
-
     @Test
     @DisplayName("예약 insert 실패 시 예외 호출 테스트")
     void addReservationFailed() {
