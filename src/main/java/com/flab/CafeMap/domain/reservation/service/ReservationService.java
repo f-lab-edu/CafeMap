@@ -25,7 +25,6 @@ public class ReservationService {
     private final ReservationMapper reservationMapper;
     private final UserMapper userMapper;
     private final CafeMapper cafeMapper;
-    private final UserAddressService userAddressService;
 
     @Transactional
     public ReservationSaveResponse addReservation(ReservationSaveRequest reservationSaveRequest, Long userId) {
@@ -38,12 +37,9 @@ public class ReservationService {
 
         userMapper.insertUser(user);
 
-        UserAddress userAddress = userAddressService.findUserAddressByUserId(user.getId());
-
         Reservation reservation = Reservation.builder()
             .userId(user.getId())
             .cafeId(cafe.getId())
-            .address(userAddress.getDetailAddress())
             .reservationStatus(ReservationStatus.CONFIRMED)
             .createdAt(LocalDateTime.now())
             .build();
