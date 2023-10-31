@@ -14,6 +14,8 @@ public interface UserAddressMapper {
 
     int insertUserAddress(UserAddress userAddress);
 
+    Optional<UserAddress> selectUserAddressByUserId(Long Id);
+
     Optional<UserAddress> selectUserAddressByLoginId(String loginId);
 
     Optional<User> selectUserAddressByUserId(Long userId);

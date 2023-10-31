@@ -2,6 +2,8 @@ package com.flab.CafeMap.domain.user.service;
 
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.UserAddress;
+import com.flab.CafeMap.domain.user.dao.UserAddressMapper;
+import com.flab.CafeMap.domain.user.exception.UserNotFoundException;
 import com.flab.CafeMap.web.user.dto.UserAddressSaveRequest;
 import com.flab.CafeMap.web.user.dto.UserSaveRequest;
 import com.flab.CafeMap.web.user.dto.kakao.KakaoMapApiRequest;
@@ -14,6 +16,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @SpringBootTest : SpringBoot 통합테스트에 사용되는 애노테이션으로 @SpringBootApplication을 찾아가 하위의 모든 빈을 스캔한다.
@@ -29,6 +32,9 @@ class UserAddressServiceTest {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    UserAddressMapper userAddressMapper;
 
     @Autowired
     UserAddressService userAddressService;
@@ -51,6 +57,16 @@ class UserAddressServiceTest {
         //then
         assertThat(userAddress.getLatitude()).isNotNull();
         assertThat(userAddress.getLongitude()).isNotNull();
+    }
+
+    @Test
+    @DisplayName("회원 주소를 찾을 수 없는 경우 UserAddressNotFoundException 발생")
+    void findUserAddressByUserIdNotFound() {
+        Long userId = 1L;
+
+        assertThrows(UserNotFoundException.class, () -> {
+            userAddressService.findUserAddressByUserId(userId);
+        });
     }
 
     private UserSaveRequest createUser() {
