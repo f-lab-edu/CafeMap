@@ -27,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @SpringBootTest
 @ActiveProfiles("test")
 @Transactional
-@Disabled
 class UserAddressServiceTest {
 
     @Autowired
@@ -41,6 +40,7 @@ class UserAddressServiceTest {
 
     @Test
     @DisplayName("회원 정보와 주소 등록 테스트")
+    @Disabled
     void addUserAddressTest() {
         //given
         UserSaveRequest userSaveRequest = createUser();

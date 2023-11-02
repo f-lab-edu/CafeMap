@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @RestController : @Controller + @ResponseBody
+ * @RequiredArgsConstructor : final 필드에 대해 생성자 생성
+ * @RequestMapping : 요청에 맞는 컨트롤러 매핑
+ */
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/reservations")
