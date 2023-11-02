@@ -26,9 +26,8 @@ import org.springframework.test.web.servlet.MockMvc;
  * @ActiveProfiles : 스프링 컨테이터 실행 시 실행 환경을 지정해주는 애노테이션으로, 테스트 시 특정 빈을 로드
  */
 
-@WebMvcTest
+@WebMvcTest(CafeController.class)
 @ActiveProfiles("test")
-@Disabled
 class CafeControllerTest {
 
     @Autowired
@@ -44,6 +43,7 @@ class CafeControllerTest {
 
     @Test
     @DisplayName("카페 등록 성공 테스트")
+    @Disabled
     void addCafe() throws Exception {
         //given
         CafeSaveRequest cafeSaveRequest = CafeSaveRequest.builder()

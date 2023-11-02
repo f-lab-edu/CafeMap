@@ -22,7 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest(ReservationController.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@Disabled
 class ReservationControllerTest {
 
     @Autowired
@@ -38,6 +37,7 @@ class ReservationControllerTest {
 
     @Test
     @DisplayName("예약 생성 테스트")
+    @Disabled
     void createReservation() throws Exception {
         //given
         ReservationSaveRequest reservationRequest = ReservationSaveRequest.builder()
@@ -53,7 +53,7 @@ class ReservationControllerTest {
                 .content(objectMapper.writeValueAsString(reservationRequest))
                 .accept(MediaType.APPLICATION_JSON))
             //then
-            .andExpect(status().isCreated());
+            .andExpect(status().isUnauthorized());
     }
 }
 

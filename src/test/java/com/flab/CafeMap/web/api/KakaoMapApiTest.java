@@ -18,7 +18,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@Disabled
 class KakaoMapApiTest {
 
     @Autowired
@@ -26,6 +25,7 @@ class KakaoMapApiTest {
 
     @Test
     @DisplayName("카테고리와 좌표 정보로 카페 정보를 받아오는 API 테스트")
+    @Disabled
     void getAddressByCoordinates() {
 
         String x = "127.423084873712";

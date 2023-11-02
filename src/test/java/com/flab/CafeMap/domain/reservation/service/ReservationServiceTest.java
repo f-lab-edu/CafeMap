@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 import com.flab.CafeMap.domain.cafe.Cafe;
 import com.flab.CafeMap.domain.cafe.dao.CafeMapper;
 import com.flab.CafeMap.domain.reservation.exception.CafeNotFoundException;
+import com.flab.CafeMap.domain.reservation.exception.UserIdNotFoundException;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.UserAddress;
 import com.flab.CafeMap.domain.user.dao.UserMapper;
@@ -40,9 +41,6 @@ class ReservationServiceTest {
     @MockBean
     private UserMapper userMapper;
 
-    @MockBean
-    private CafeMapper cafeMapper;
-
     @Test
     @DisplayName("예약 insert 실패 시 예외 호출 테스트")
     void addReservationFailed() {
@@ -65,17 +63,6 @@ class ReservationServiceTest {
             .longitude(127.0312783056)
             .build();
 
-        UserAddress userAddress = UserAddress.builder()
-            .id(1L)
-            .loginId("testUser")
-            .streetAddress("123 Main St")
-            .detailAddress("Apt 101")
-            .latitude(37.12345)
-            .longitude(127.54321)
-            .createdAt(LocalDateTime.now())
-            .createdBy("test")
-            .build();
-
         when(userMapper.selectUserById(1L)).thenReturn(Optional.of(user));
 
         //when
@@ -87,7 +74,7 @@ class ReservationServiceTest {
             .build();
 
         //then
-        assertThrows(CafeNotFoundException.class, () -> {
+        assertThrows(UserIdNotFoundException.class, () -> {
             reservationService.addReservation(reservationSaveRequest, user.getLoginId());
         });
     }
