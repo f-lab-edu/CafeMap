@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 /**
  * @Getter : getter 메소드를 자동으로 생성
  * @Builder : 빌더 패턴을 사용할 수 있게 도와주는 애노테이션
- * @NoArgsConstructor : 인자가 없는 생성자를 만들어준다.
- * @AllArgsConstructor  : 빌더 패턴을 사용할 수 있게 도와주는 애노테이션
+ * @NoArgsConstructor : 필드가 없는 기본 생성자를 만들어준다.
+ * @AllArgsConstructor  : 모든 필드를 받는 생성자를 만들어준다.
  */
 
 @Getter
@@ -29,9 +29,10 @@ public class User {
     private String createdBy;
     private String modifiedBy;
 
-    public void modify(String name, String phoneNumber){
+    public void modify(String name, String phoneNumber, String modifiedBy){
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.modifiedAt = LocalDateTime.now();
+        this.modifiedBy = modifiedBy;
     }
 }
