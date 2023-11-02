@@ -33,8 +33,6 @@ public class ReservationService {
         Cafe cafe = cafeMapper.selectCafeById(cafeId)
             .orElseThrow(() -> new CafeNotFoundException());
 
-        userMapper.insertUser(user);
-
         Reservation reservation = Reservation.builder()
             .userId(user.getId())
             .cafeId(cafe.getId())
