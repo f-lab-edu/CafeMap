@@ -1,13 +1,15 @@
 package com.flab.CafeMap.domain.login.service;
 
 import com.flab.CafeMap.domain.login.exception.DuplicatedLoginSessionException;
-import com.flab.CafeMap.domain.login.exception.UserNotFoundException;
+import com.flab.CafeMap.domain.login.exception.InvalidPasswordException;
+import com.flab.CafeMap.domain.user.exception.UserNotFoundException;
 import com.flab.CafeMap.domain.login.exception.LoginSessionNotFoundException;
 import com.flab.CafeMap.domain.user.User;
 import com.flab.CafeMap.domain.user.dao.UserMapper;
 import com.flab.CafeMap.web.login.dto.LoginRequest;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 public class LoginService {
 
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
     public static final String LOGIN_SESSION = "loginId";
 
     public User login(LoginRequest loginRequest, HttpSession session) {
@@ -29,7 +32,12 @@ public class LoginService {
         User user = userMapper.selectUserByLoginId(loginRequest.getLoginId())
             .orElseThrow(() -> new UserNotFoundException());
 
-        session.setAttribute(LOGIN_SESSION, user.getLoginId());
+        if (isCheckPassword(loginRequest.getPassword(), user.getPassword())) {
+            session.setAttribute(LOGIN_SESSION, loginRequest.getLoginId());
+        } else {
+            throw new InvalidPasswordException();
+        }
+
         return user;
     }
 
@@ -39,5 +47,9 @@ public class LoginService {
         } else {
             throw new LoginSessionNotFoundException();
         }
+    }
+
+    private boolean isCheckPassword(String password, String findPassword) {
+        return passwordEncoder.matches(password, findPassword);
     }
 }

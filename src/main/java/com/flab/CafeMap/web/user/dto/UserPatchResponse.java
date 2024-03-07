@@ -28,11 +28,11 @@ public class UserPatchResponse {
 
     public static UserPatchResponse from(User user) {
         return UserPatchResponse.builder()
-            .loginId(user.getLoginId())
-            .name(user.getName())
-            .phoneNumber(user.getPhoneNumber())
-            .createdAt(user.getCreatedAt())
-            .modifiedAt(user.getModifiedAt())
-            .build();
+                .loginId(user.getLoginId())
+                .name(user.getName())
+                .phoneNumber(user.getPhoneNumber())
+                .createdAt(user.getCreatedAt())
+                .modifiedAt(user.getModifiedAt())
+                .build();
     }
 }

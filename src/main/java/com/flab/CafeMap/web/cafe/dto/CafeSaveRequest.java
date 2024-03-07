@@ -1,10 +1,7 @@
-package com.flab.CafeMap.web.user.dto;
+package com.flab.CafeMap.web.cafe.dto;
 
-import com.flab.CafeMap.domain.user.User;
-
-import javax.validation.constraints.NotBlank;
+import com.flab.CafeMap.domain.cafe.Cafe;
 import javax.validation.constraints.NotNull;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,28 +18,26 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserSaveRequest {
+public class CafeSaveRequest {
 
     @NotNull
-    private Long id;
-
-    @NotNull
-    private String loginId;
+    private String cafeId;
 
     @NotNull
     private String name;
 
     @NotNull
-    private String password;
+    private Double latitude;
 
     @NotNull
-    private String phoneNumber;
+    private Double longitude;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public User toEntity() {
-        return User.builder().id(this.id).loginId(this.loginId).name(this.name).password(this.password).phoneNumber(this.phoneNumber).createdBy(this.name).build();
+    public Cafe toEntity() {
+        return Cafe.builder()
+            .cafeId(this.cafeId)
+            .name(this.name)
+            .latitude(this.latitude)
+            .longitude(this.longitude)
+            .build();
     }
 }
